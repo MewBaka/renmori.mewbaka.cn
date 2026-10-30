@@ -30,6 +30,66 @@
   }
 }
 
+/* The hero text is split into two lines in frontmatter; keep each line whole
+   and scale it with the column instead of letting it wrap again. Each factor is
+   the column width divided by that locale's longest line (in em), minus a margin */
+.rp-home-hero__content {
+  container-type: inline-size;
+  width: 100%;
+}
+
+.rp-home-hero .rp-home-hero__subtitle {
+  white-space: nowrap;
+}
+
+:lang(zh) .rp-home-hero .rp-home-hero__subtitle {
+  font-size: min(3rem, 7.6cqi);
+}
+
+:lang(en) .rp-home-hero .rp-home-hero__subtitle {
+  font-size: min(3rem, 6.7cqi);
+}
+
+:lang(ja) .rp-home-hero .rp-home-hero__subtitle {
+  font-size: min(3rem, 5.8cqi);
+}
+
+/* The second line continues the first one, so drop the mobile line gap */
+.rp-home-hero .rp-home-hero__subtitle + .rp-home-hero__subtitle {
+  margin-top: 0;
+}
+
+/* Text and logo share the hero row equally; the logo fills its column.
+   Selectors are prefixed with .rp-home-hero to outrank the theme's own rules,
+   which load after this file */
+.rp-home-hero .rp-home-hero__image-img {
+  width: 100%;
+  height: auto;
+}
+
+@media (width > 1000px) {
+  .rp-home-hero.rp-home-hero {
+    gap: 48px;
+  }
+
+  .rp-home-hero .rp-home-hero__container,
+  .rp-home-hero .rp-home-hero__image {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .rp-home-hero .rp-home-hero__image {
+    max-width: none;
+  }
+}
+
+@media (width <= 1000px) {
+  .rp-home-hero .rp-home-hero__image {
+    width: 100%;
+    max-width: min(480px, 80vw);
+  }
+}
+
 .rm-install-tabs .rp-tabs {
   margin: 0;
 }

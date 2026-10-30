@@ -3,7 +3,9 @@ pageType: home
 
 hero:
   name: RenMori
-  text: Full-data protection for commercial Ren'Py visual novels
+  text: |
+    Full-data protection for
+    commercial Ren'Py visual novels
   tagline: Released by MewBaka, protecting your visual novel without getting in the way
   image:
     src: /renmori-protector.svg
