@@ -1,4 +1,8 @@
-import { HomeLayout as BaseHomeLayout } from '@rspress/core/theme-original';
+import { useSite } from '@rspress/core/runtime';
+import {
+  HomeLayout as BaseHomeLayout,
+  Layout as BaseLayout,
+} from '@rspress/core/theme-original';
 import { HomeData } from './components/HomeData';
 import { InstallTabs } from './components/InstallTabs';
 
@@ -11,5 +15,17 @@ function HomeLayout() {
   );
 }
 
-export { HomeLayout };
+// The built-in footer only renders on the home page; show the same message on doc pages
+function SiteFooter() {
+  const { site } = useSite();
+  const message = site.themeConfig.footer?.message;
+  if (!message) return null;
+  return <footer className="rm-doc-footer">{message}</footer>;
+}
+
+function Layout() {
+  return <BaseLayout afterDocFooter={<SiteFooter />} />;
+}
+
+export { HomeLayout, Layout };
 export * from '@rspress/core/theme-original';

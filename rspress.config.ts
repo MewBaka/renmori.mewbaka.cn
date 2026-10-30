@@ -92,6 +92,10 @@ export default defineConfig({
   themeConfig: {
     // Copy Markdown / Copy Markdown link / Open in ChatGPT / Open in Claude under each H1
     llmsUI: true,
+    // Rendered by HomeFooter on the home page and by DocFooter (theme/index.tsx) on doc pages
+    footer: {
+      message: '© 2026 笨猫工作室 MewBaka Studio. All Rights Reserved.',
+    },
     socialLinks: [
       {
         icon: 'github',
