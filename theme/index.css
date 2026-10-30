@@ -15,6 +15,19 @@
     #fffdf8;
 }
 
+/* Japanese has no spaces inside words; break the hero title only at the space after Ren'Py */
+:lang(ja) .rp-home-hero__subtitle {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* リソースプロテクター is wider than the hero column at the default 4rem */
+@media (min-width: 601px) {
+  :lang(ja) .rp-home-hero .rp-home-hero__subtitle {
+    font-size: 3.25rem;
+  }
+}
+
 .dark {
   --rp-c-brand: #e0805f;
   --rp-c-brand-dark: #c65b3b;

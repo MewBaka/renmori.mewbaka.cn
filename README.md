@@ -23,6 +23,7 @@ npm run build
 |---|---|
 | `docs/zh/` | 简体中文文档（默认语言，无路径前缀） |
 | `docs/en/` | 英文文档（`/en/` 前缀） |
+| `docs/ja/` | 日文文档（`/ja/` 前缀） |
 | `docs/public/` | 静态资源，含 Logo 与站点图标 |
 | `theme/index.css` | 品牌色等全局样式 |
 | `rspress.config.ts` | 站点配置 |

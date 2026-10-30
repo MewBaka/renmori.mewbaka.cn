@@ -22,6 +22,12 @@ export default defineConfig({
       title: 'RenMori',
       description: 'Full-data protection for commercial Ren\'Py visual novels',
     },
+    {
+      lang: 'ja',
+      label: '日本語',
+      title: 'RenMori',
+      description: '商用 Ren\'Py ビジュアルノベル向けの全データ保護ツール',
+    },
   ],
   route: {
     cleanUrls: true,
