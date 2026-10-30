@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<defs>
+  <linearGradient id="moriG" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#c65b3b"/><stop offset="1" stop-color="#9b3a21"/>
+  </linearGradient>
+  <g id="key">
+    <circle cx="0" cy="0" r="27.04"/>
+    <rect x="-6.76" y="9.36" width="13.52" height="53.04" rx="5.2"/>
+    <rect x="4.16" y="50.96" width="17.68" height="8.32" rx="2.6"/>
+    <rect x="4.16" y="37.44" width="12.48" height="7.28" rx="2.6"/>
+  </g>
+</defs>
+<!-- sticker shadow -->
+<g transform="translate(6 16)" fill="#3a2013" stroke="#3a2013" opacity=".16" stroke-linejoin="round">
+  <circle cx="226" cy="290" r="170" stroke-width="52"/>
+  <use href="#key" transform="translate(390 118) rotate(26) scale(1.9)" stroke-width="27.4"/>
+</g>
+<!-- sticker backing -->
+<g fill="#fdf6ea" stroke="#fdf6ea" stroke-linejoin="round">
+  <circle cx="226" cy="290" r="170" stroke-width="52"/>
+  <use href="#key" transform="translate(390 118) rotate(26) scale(1.9)" stroke-width="27.4"/>
+</g>
+<!-- keyhole "o" from the wordmark -->
+<circle cx="234" cy="306" r="170" fill="#3a2013" opacity=".16"/>
+<circle cx="226" cy="290" r="170" fill="#43281b"/>
+<circle cx="226" cy="290" r="157" fill="url(#moriG)"/>
+<path d="M107 260 A126 126 0 0 1 205.6 168.2" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="20" stroke-linecap="round"/>
+<circle cx="226" cy="266.4" r="51.6" fill="#fff2d8"/>
+<path d="M208 266.4 L244 266.4 L259.7 383.1 L192.3 383.1 Z" fill="#fff2d8"/>
+<!-- gold key -->
+<g transform="translate(390 118) rotate(26) scale(1.9)" stroke-linejoin="round">
+  <use href="#key" transform="translate(3.2 8.4)" fill="#3a2013" stroke="#3a2013" stroke-width="11.44" opacity=".16"/>
+  <use href="#key" fill="#43281b" stroke="#43281b" stroke-width="11.44"/>
+  <use href="#key" fill="#f3c24e" stroke="#f3c24e" stroke-width="4.16"/>
+  <circle cx="0" cy="0" r="10.92" fill="#fdf6ea" stroke="#43281b" stroke-width="4.73"/>
+</g>
+<!-- sparkle -->
+<path d="M70 96 Q78 115 97 123 Q78 131 70 150 Q62 131 43 123 Q62 115 70 96Z" fill="#f3c24e" stroke="#43281b" stroke-width="5" stroke-linejoin="round"/>
+</svg>

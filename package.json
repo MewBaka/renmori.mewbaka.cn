@@ -1,0 +1,19 @@
+{
+  "name": "renmori.mewbaka.cn",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "rspress dev",
+    "build": "rspress build",
+    "preview": "rspress preview"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "devDependencies": {
+    "@rspress/core": "^2.0.23",
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}

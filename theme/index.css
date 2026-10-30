@@ -1,0 +1,32 @@
+/* Brand colors taken from the protector logo (moriG / renG gradients) */
+:root {
+  --rp-c-brand: #c65b3b;
+  --rp-c-brand-dark: #9b3a21;
+  --rp-c-brand-darker: #7a3620;
+  --rp-c-brand-light: #d9785a;
+  --rp-c-brand-lighter: #f6cd77;
+  --rp-c-brand-tint: rgba(198, 91, 59, 0.12);
+
+  --rp-home-hero-secondary-color: #e7a63c;
+  --rp-home-background-bg:
+    radial-gradient(42.12% 56.13% at 100% 0%, #f3c24e26 0%, #fff0 100%),
+    radial-gradient(42.01% 79.63% at 52.86% 0%, #f6cd7733 0%, #fff0 100%),
+    radial-gradient(79.67% 58.09% at 0% 0%, #c65b3b29 0%, #fff0 100%),
+    #fffdf8;
+}
+
+.dark {
+  --rp-c-brand: #e0805f;
+  --rp-c-brand-dark: #c65b3b;
+  --rp-c-brand-darker: #9b3a21;
+  --rp-c-brand-light: #ec9a7c;
+  --rp-c-brand-lighter: #f3c24e;
+  --rp-c-brand-tint: rgba(224, 128, 95, 0.16);
+
+  --rp-home-hero-secondary-color: #f3c24e;
+  --rp-home-background-bg:
+    radial-gradient(42.12% 56.13% at 100% 0%, #4a2f12 0%, #12121200 100%),
+    radial-gradient(55.81% 87.78% at 48.37% 0%, #000 0%, #12121200 89.55%),
+    radial-gradient(122.65% 88.24% at 0% 0%, #5a2414 0%, #12121200 100%),
+    #121212;
+}

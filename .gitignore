@@ -1,0 +1,11 @@
+# deps
+node_modules/
+
+# build
+doc_build/
+.rspress/
+
+# misc
+.DS_Store
+.vercel
+.env*.local
