@@ -25,6 +25,8 @@ npm run build
 | `docs/en/` | 英文文档（`/en/` 前缀） |
 | `docs/ja/` | 日文文档（`/ja/` 前缀） |
 | `docs/public/` | 静态资源，含 Logo 与站点图标 |
+| `theme/index.tsx` | 主题覆盖，在首页 Hero 按钮下方插入安装命令框 |
+| `theme/components/` | 自定义组件，如 pip / uv / pipx 安装命令标签页 |
 | `theme/index.css` | 品牌色等全局样式 |
 | `rspress.config.ts` | 站点配置 |
 

@@ -1,0 +1,39 @@
+---
+title: 快速开始
+description: 安装 RenMori 并完成首次 Ren'Py 发行版构建保护
+---
+
+import { InstallTabs } from '../../../theme/components/InstallTabs';
+
+# 快速开始
+
+## 环境要求
+
+- Python 3.9 及以上版本
+- 读取 `renmori.toml` 配置需要 Python 3.11 及以上版本，更低版本需额外安装 `tomli`
+- 由 Ren'Py 8.x 构建的游戏发行版
+
+## 安装
+
+<InstallTabs />
+
+安装完成后执行 `renmori --version` 确认 CLI 可用。
+
+## 保护游戏
+
+1. 在 Ren'Py 启动器中执行 *Build Distributions*，RenMori 仅处理发行版构建产物，不会修改游戏源码
+2. 对构建产物执行保护，输入可以是构建目录，也可以是启动器生成的 `.zip` 文件
+
+   ```bash
+   renmori protect ./dist/MyGame-1.0-pc -o ./dist/MyGame-1.0-pc-protected
+   ```
+
+   首次完整保护时，RenMori 会从公开 Release 下载对应平台的闭源插件，完成校验后缓存至本地
+
+3. 校验保护结果，该命令可用作 CI 门禁
+
+   ```bash
+   renmori verify ./dist/MyGame-1.0-pc-protected
+   ```
+
+4. 将受保护的目录作为发行版发布，`renmori.rmc` 与 `renmori.rpe` 须一同分发，且不得再通过 Ren'Py 启动器重新构建，否则保护将失效

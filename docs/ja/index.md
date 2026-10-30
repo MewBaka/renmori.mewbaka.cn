@@ -3,16 +3,16 @@ pageType: home
 
 hero:
   name: RenMori
-  text: Ren'Py リソースプロテクター
-  tagline: 商用 Ren'Py ビジュアルノベル向けの全データ保護ツール
+  text: 商用 Ren'Py ビジュアルノベル向けの全データ保護ツール
+  tagline: MewBaka が公開、プレイ体験を損なうことなくビジュアルノベルを保護
   image:
     src: /renmori-protector.svg
     alt: RenMori
   actions:
     - theme: brand
+      text: クイックスタート
+      link: /ja/guide/quick-start
+    - theme: alt
       text: GitHub
       link: https://github.com/MewBaka/RenMori
-    - theme: alt
-      text: PyPI
-      link: https://pypi.org/project/renmori/
 ---

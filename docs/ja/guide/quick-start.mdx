@@ -1,0 +1,39 @@
+---
+title: クイックスタート
+description: RenMori をインストールし、Ren'Py 配布用ビルドを初めて保護する
+---
+
+import { InstallTabs } from '../../../theme/components/InstallTabs';
+
+# クイックスタート
+
+## 動作要件
+
+- Python 3.9 以降
+- `renmori.toml` 設定の読み込みには Python 3.11 以降、それ未満のバージョンでは `tomli` の追加インストールが必要
+- Ren'Py 8.x でビルドされたゲームの配布用ビルド
+
+## インストール
+
+<InstallTabs />
+
+インストール後、`renmori --version` を実行して CLI が利用可能であることを確認します。
+
+## ゲームを保護する
+
+1. Ren'Py ランチャーで *Build Distributions* を実行（RenMori は配布用ビルドのみを処理し、ゲームのソースは変更しない）
+2. ビルド成果物を保護（入力にはビルドディレクトリ、またはランチャーが生成した `.zip` ファイルを指定可能）
+
+   ```bash
+   renmori protect ./dist/MyGame-1.0-pc -o ./dist/MyGame-1.0-pc-protected
+   ```
+
+   初回の完全保護時、RenMori は公開リリースから各プラットフォーム用のクローズドソースプラグインをダウンロードし、検証後にローカルへキャッシュする
+
+3. 保護結果を検証（このコマンドは CI ゲートとして利用可能）
+
+   ```bash
+   renmori verify ./dist/MyGame-1.0-pc-protected
+   ```
+
+4. 保護済みディレクトリを配布用ビルドとしてリリース（`renmori.rmc` と `renmori.rpe` は必ず併せて配布し、再ビルドすると保護が失われるため Ren'Py ランチャーで再ビルドしないこと）

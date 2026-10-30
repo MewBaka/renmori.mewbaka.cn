@@ -15,16 +15,28 @@
     #fffdf8;
 }
 
-/* Japanese has no spaces inside words; break the hero title only at the space after Ren'Py */
-:lang(ja) .rp-home-hero__subtitle {
-  word-break: keep-all;
-  overflow-wrap: anywhere;
+/* Install command tabs under the hero actions */
+.rm-install-tabs {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 28px;
+  text-align: left;
 }
 
-/* リソースプロテクター is wider than the hero column at the default 4rem */
+/* The hero text is a full sentence, so the default 4rem wraps to three lines */
 @media (min-width: 601px) {
-  :lang(ja) .rp-home-hero .rp-home-hero__subtitle {
-    font-size: 3.25rem;
+  .rp-home-hero .rp-home-hero__subtitle {
+    font-size: 3rem;
+  }
+}
+
+.rm-install-tabs .rp-tabs {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .rm-install-tabs {
+    margin-inline: auto;
   }
 }
 

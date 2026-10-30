@@ -1,0 +1,39 @@
+---
+title: Quick Start
+description: Install RenMori and protect your first Ren'Py distribution build
+---
+
+import { InstallTabs } from '../../../theme/components/InstallTabs';
+
+# Quick Start
+
+## Requirements
+
+- Python 3.9 or later
+- Python 3.11 or later to read a `renmori.toml` config, or `tomli` installed on older versions
+- A game distribution built with Ren'Py 8.x
+
+## Install
+
+<InstallTabs />
+
+Run `renmori --version` afterwards to confirm the CLI is available.
+
+## Protect a game
+
+1. Run *Build Distributions* in the Ren'Py launcher; RenMori works only on the distribution build and never modifies the game source
+2. Protect the build; the input can be the build directory or the `.zip` archive produced by the launcher
+
+   ```bash
+   renmori protect ./dist/MyGame-1.0-pc -o ./dist/MyGame-1.0-pc-protected
+   ```
+
+   On the first full protection, RenMori downloads the closed-source plugin for your platform from the public release, verifies it, and caches it locally
+
+3. Verify the result; this command can serve as a CI gate
+
+   ```bash
+   renmori verify ./dist/MyGame-1.0-pc-protected
+   ```
+
+4. Ship the protected directory as your release, with `renmori.rmc` and `renmori.rpe` distributed together; do not rebuild it with the Ren'Py launcher, as that discards the protection
