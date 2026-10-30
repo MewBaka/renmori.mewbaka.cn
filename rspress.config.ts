@@ -32,7 +32,11 @@ export default defineConfig({
   route: {
     cleanUrls: true,
   },
+  // Generates llms.txt and a Markdown copy of every page for the LLM UI below
+  llms: true,
   themeConfig: {
+    // Copy Markdown / Copy Markdown link / Open in ChatGPT / Open in Claude under each H1
+    llmsUI: true,
     socialLinks: [
       {
         icon: 'github',
