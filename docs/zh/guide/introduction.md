@@ -64,6 +64,8 @@ RenMori 的定位是使所有通用解包工具失效，并将提取成本提高
 
 RenMori 采用 [RenMori License 1.0](https://github.com/MewBaka/RenMori/blob/main/LICENSE.zh-CN.md)，这是一份源码可见（source-available）许可，并非 OSI 开源许可。保护任何 Ren'Py 游戏均免费，包括商业作品，运行时可随游戏一同免费再分发。禁止售卖 RenMori 本身或其修改版本，也禁止使用 RenMori 提供收费的「代加密」服务。
 
+完整的免责条款、贡献提交要求与面向开发者的授权说明，参阅 [免责声明](../license/disclaimer.md)、[提交要求](../license/contributing.md) 与 [给开发者的提示](../license/developer-notes.md)。
+
 ## 联系我们
 
 如有授权相关问题或需要技术协助，请发送邮件至 [team@mewbaka.cn](mailto:team@mewbaka.cn)。

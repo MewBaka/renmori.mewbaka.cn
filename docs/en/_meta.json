@@ -1,1 +1,8 @@
-[{ "type": "dir-section-header", "name": "guide", "label": "Guide" }]
+[
+  { "type": "dir-section-header", "name": "guide", "label": "Guide" },
+  { "type": "dir-section-header", "name": "cli", "label": "CLI Reference" },
+  { "type": "dir-section-header", "name": "integration", "label": "Integration & Release" },
+  { "type": "dir-section-header", "name": "technical", "label": "Technical Details" },
+  { "type": "dir-section-header", "name": "milestones", "label": "Verification Records" },
+  { "type": "dir-section-header", "name": "license", "label": "License" }
+]

@@ -1,4 +1,4 @@
 [
-  { "text": "Docs", "link": "/guide/introduction", "activeMatch": "/guide/" },
+  { "text": "Docs", "link": "/guide/introduction", "activeMatch": "/(guide|cli|integration|technical|milestones|license)/" },
   { "text": "MewBaka", "link": "https://mewbaka.cn" }
 ]

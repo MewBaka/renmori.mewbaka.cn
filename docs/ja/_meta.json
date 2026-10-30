@@ -1,1 +1,8 @@
-[{ "type": "dir-section-header", "name": "guide", "label": "ガイド" }]
+[
+  { "type": "dir-section-header", "name": "guide", "label": "ガイド" },
+  { "type": "dir-section-header", "name": "cli", "label": "CLI リファレンス" },
+  { "type": "dir-section-header", "name": "integration", "label": "連携とリリース" },
+  { "type": "dir-section-header", "name": "technical", "label": "技術解説" },
+  { "type": "dir-section-header", "name": "milestones", "label": "検証記録" },
+  { "type": "dir-section-header", "name": "license", "label": "ライセンス" }
+]

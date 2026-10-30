@@ -28,7 +28,7 @@ import { InstallTabs } from '../../../theme/components/InstallTabs';
    renmori protect ./dist/MyGame-1.0-pc -o ./dist/MyGame-1.0-pc-protected
    ```
 
-   初回の完全保護時、RenMori は公開リリースから各プラットフォーム用のクローズドソースプラグインをダウンロードし、検証後にローカルへキャッシュする
+   初回のフル保護時、RenMori は公開リリースから各プラットフォーム用のクローズドプラグインをダウンロードし、検証後にローカルへキャッシュする
 
 3. 保護結果を検証（このコマンドは CI ゲートとして利用可能）
 
@@ -37,3 +37,12 @@ import { InstallTabs } from '../../../theme/components/InstallTabs';
    ```
 
 4. 保護済みディレクトリを配布用ビルドとしてリリース（`renmori.rmc` と `renmori.rpe` は必ず併せて配布し、再ビルドすると保護が失われるため Ren'Py ランチャーで再ビルドしないこと）
+
+## 次のステップ
+
+- [`renmori protect`](../cli/protect.md)：全オプション、ファイル処理ルールと実行手順
+- [設定ファイル renmori.toml](../cli/configuration.md)：チームや CI で保護パラメータを固定
+- [保護強度とクローズドプラグイン](../cli/plugin.md)：ベースライン保護とフル保護の違い
+- [CI との連携](../integration/ci.md)：パイプラインで保護と検証を自動化
+- [Steam へのリリース](../integration/steam-release.md)：保護済みビルドのアップロードと起動オプション
+- [開発者向けの注意事項](../license/developer-notes.md)：許諾範囲とリリース前チェックリスト

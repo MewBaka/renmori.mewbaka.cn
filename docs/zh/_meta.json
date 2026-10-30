@@ -1,1 +1,8 @@
-[{ "type": "dir-section-header", "name": "guide", "label": "指南" }]
+[
+  { "type": "dir-section-header", "name": "guide", "label": "指南" },
+  { "type": "dir-section-header", "name": "cli", "label": "CLI 参考" },
+  { "type": "dir-section-header", "name": "integration", "label": "集成与发行" },
+  { "type": "dir-section-header", "name": "technical", "label": "技术原理" },
+  { "type": "dir-section-header", "name": "milestones", "label": "验证记录" },
+  { "type": "dir-section-header", "name": "license", "label": "授权" }
+]

@@ -64,6 +64,8 @@ Always complete testing on every target platform before release.
 
 RenMori is released under the [RenMori License 1.0](https://github.com/MewBaka/RenMori/blob/main/LICENSE), a source-available license that is not an OSI open-source license. Protecting any Ren'Py game is free, including commercial titles, and the runtime may be redistributed with the game free of charge. Selling RenMori itself or a modified version of it, or using it to offer a paid encryption service, is prohibited.
 
+For the complete disclaimer terms, the contribution requirements and license guidance for developers, see [Disclaimer](../license/disclaimer.md), [Contribution Requirements](../license/contributing.md) and [Notes for Developers](../license/developer-notes.md).
+
 ## Contact
 
 For licensing questions or technical assistance, please email [team@mewbaka.cn](mailto:team@mewbaka.cn).

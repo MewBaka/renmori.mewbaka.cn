@@ -64,6 +64,8 @@ RenMori の目的は、あらゆる汎用アンパックツールを無効化し
 
 RenMori は [RenMori License 1.0](https://github.com/MewBaka/RenMori/blob/main/LICENSE)（英語）で提供されています。これはソース公開型（source-available）のライセンスであり、OSI 承認のオープンソースライセンスではありません。商用作品を含め、あらゆる Ren'Py ゲームの保護は無料であり、ランタイムはゲームと共に無償で再配布できます。RenMori 本体やその改変版の販売、および RenMori を用いた有料の「暗号化代行」サービスの提供は禁止されています。
 
+免責条項の全体、コントリビューションの提出要件、および開発者向けのライセンスに関する説明は、[免責事項](../license/disclaimer.md)、[提出要件](../license/contributing.md)、[開発者向けの注意事項](../license/developer-notes.md)を参照してください。
+
 ## お問い合わせ
 
 ライセンスに関するご質問や技術的なサポートについては、[team@mewbaka.cn](mailto:team@mewbaka.cn) までメールでご連絡ください。
