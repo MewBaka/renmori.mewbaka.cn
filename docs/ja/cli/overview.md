@@ -73,6 +73,7 @@ python -m renmori <command> [options]
 |---|---|---|
 | `renmori protect <ビルドディレクトリ \| ビルド.zip>` | 配布用ビルドを保護：すべてのアセットをアーカイブ化して暗号化し、コンパイル済みスクリプトを変換、平文の元ファイルを削除し、ローダー拡張とビルドマニフェストを書き込む | [protect](./protect.md) |
 | `renmori verify <保護済みディレクトリ>` | ビルドマニフェストに基づき保護済みビルドを再検証：コンテナのハッシュ、必須ファイル、平文の残存 | [verify](./verify.md) |
+| `renmori gui` | Tkinter ベースのグラフィカルインターフェースを開き、保護・検証・`renmori.toml` の編集をウィンドウ上で行う | [gui](./gui.md) |
 | `renmori --version` | ツール名とバージョン番号を表示して終了 | — |
 | `renmori -h`、`renmori <command> -h` | ヘルプを表示して終了 | — |
 
@@ -125,6 +126,7 @@ renmori verify  →  検証に合格したらアップロードまたはパッ�
 
 - [`renmori protect`](./protect.md)：全オプション、ファイル処理ルールと実行手順
 - [`renmori verify`](./verify.md)：検証項目と使い方
+- [`renmori gui`](./gui.md)：GUI の動作環境と、各コントロールと CLI オプションの対応関係
 - [設定ファイル renmori.toml](./configuration.md)：全設定キーとマージルール
 - [出力・ビルドマニフェスト・終了コード](./output.md)：スクリプトや CI で解析するための出力形式
 - [保護強度とクローズドプラグイン](./plugin.md)：ベースライン保護とフル保護の違い、プラグインの取得とキャッシュ

@@ -73,6 +73,7 @@ When the system has several Python environments and `renmori` is not on `PATH`, 
 |---|---|---|
 | `renmori protect <build-dir \| build.zip>` | Protects a distribution build: packs and encrypts all assets, transforms compiled scripts, deletes plaintext originals, and writes the loader extension and build manifest | [protect](./protect.md) |
 | `renmori verify <protected-dir>` | Re-verifies a protected build against its build manifest: container hash, required files, plaintext leftovers | [verify](./verify.md) |
+| `renmori gui` | Opens the Tkinter graphical interface for protecting, verifying and editing `renmori.toml` in a window | [gui](./gui.md) |
 | `renmori --version` | Prints the tool name and version, then exits | — |
 | `renmori -h`, `renmori <command> -h` | Prints help, then exits | — |
 
@@ -125,6 +126,7 @@ renmori verify  →  upload or package for distribution once verification passes
 
 - [`renmori protect`](./protect.md): all options, file handling rules and the execution flow
 - [`renmori verify`](./verify.md): checks performed and usage
+- [`renmori gui`](./gui.md): GUI requirements and how each control maps to CLI options
 - [Configuration File renmori.toml](./configuration.md): all configuration keys and merge rules
 - [Output, Build Manifest and Exit Codes](./output.md): output formats for scripts and CI to parse
 - [Protection Strength and the Closed Plugin](./plugin.md): the difference between baseline and full protection; obtaining and caching the plugin

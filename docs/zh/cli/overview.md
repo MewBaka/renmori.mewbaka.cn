@@ -73,6 +73,7 @@ python -m renmori <command> [options]
 |---|---|---|
 | `renmori protect <构建目录 \| 构建.zip>` | 保护一个发行版构建：封包并加密全部资产，变换已编译脚本，删除明文原件，写入加载器扩展与构建清单 | [protect](./protect.md) |
 | `renmori verify <受保护目录>` | 依据构建清单重新校验受保护构建：容器哈希、必需文件、明文残留 | [verify](./verify.md) |
+| `renmori gui` | 打开基于 Tkinter 的图形界面，在窗口中完成保护、校验与 `renmori.toml` 编辑 | [gui](./gui.md) |
 | `renmori --version` | 打印工具名称与版本号后退出 | — |
 | `renmori -h`、`renmori <command> -h` | 打印帮助信息后退出 | — |
 
@@ -125,6 +126,7 @@ renmori verify  →  校验通过后上传或打包分发
 
 - [`renmori protect`](./protect.md)：全部参数、文件处理规则与执行流程
 - [`renmori verify`](./verify.md)：校验项目与使用方式
+- [`renmori gui`](./gui.md)：图形界面的运行环境、各控件与 CLI 参数的对应关系
 - [配置文件 renmori.toml](./configuration.md)：全部配置键与合并规则
 - [输出、构建清单与退出码](./output.md)：供脚本与 CI 解析的输出格式
 - [保护强度与闭源插件](./plugin.md)：基线保护与完整保护的区别，插件的获取与缓存
