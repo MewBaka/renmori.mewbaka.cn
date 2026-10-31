@@ -1,6 +1,6 @@
 ---
-title: Steam へのリリース
-description: 保護済みの Ren'Py 配布用ビルドを、ビルド、保護、SteamPipe でのアップロードの順に Steam へ公開する手順と、デポの構成、起動オプション、Steam との互換性に関する注意点を解説する
+title: "Steam へのリリース：暗号化した Ren'Py ゲームの配信"
+description: "ビルド、保護、SteamPipe でのアップロードの順に、暗号化した Ren'Py ゲームを Steam で配信する手順と、デポの構成、起動オプション、Steam オーバーレイや DRM との互換性を解説する"
 ---
 
 # Steam へのリリース

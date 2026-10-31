@@ -1,1 +1,12 @@
-["ci", "steam-release"]
+[
+  {
+    "type": "file",
+    "name": "ci",
+    "label": "CI 集成"
+  },
+  {
+    "type": "file",
+    "name": "steam-release",
+    "label": "Steam 发行指南"
+  }
+]

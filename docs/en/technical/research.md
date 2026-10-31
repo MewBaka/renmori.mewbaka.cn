@@ -1,6 +1,6 @@
 ---
 title: "Research: the state of Ren'Py protection"
-description: A survey of Ren'Py's archive and script formats, attacker-side tooling, prior protection attempts and official and community positions, and how the findings shaped RenMori's design
+description: "A survey of Ren'Py's RPA archive and rpyc script formats, unpacking tools such as unrpa and unrpyc, prior protection attempts and official positions, and how they shaped RenMori."
 ---
 
 # Research: the state of Ren'Py protection

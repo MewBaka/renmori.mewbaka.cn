@@ -1,5 +1,5 @@
 ---
-title: Container format v1
+title: "Container Format v1 Specification"
 description: The open specification of the RenMori baseline container format v1, covering file layout, header and index structure, chunked encryption, HKDF key derivation, and the nonce and AAD scheme
 ---
 

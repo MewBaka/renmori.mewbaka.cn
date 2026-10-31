@@ -1,6 +1,6 @@
 ---
-title: CI integration
-description: Run RenMori non-interactively in a CI pipeline, manage keys and the closed plugin cache, and gate releases on renmori verify
+title: "CI Integration: Automate Ren'Py Encryption"
+description: "Run RenMori non-interactively in GitHub Actions or any CI pipeline to encrypt every Ren'Py build, manage keys and the plugin cache, and gate releases on renmori verify."
 ---
 
 # CI integration

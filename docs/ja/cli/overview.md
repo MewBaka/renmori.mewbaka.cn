@@ -1,6 +1,6 @@
 ---
-title: CLI の概要
-description: renmori コマンドラインツールの位置付け、インストール方法、コマンド構成、共通オプションと環境変数
+title: "CLI の概要：インストールとコマンド構成"
+description: "renmori コマンドラインツールの位置付け、pip・uv・pipx によるインストール方法、protect や verify などのサブコマンド構成、共通オプションと環境変数"
 ---
 
 # CLI の概要

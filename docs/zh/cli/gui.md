@@ -1,6 +1,6 @@
 ---
-title: renmori gui
-description: 基于 Tkinter 的图形界面，在窗口中完成保护、校验与 renmori.toml 编辑
+title: "renmori gui：图形界面加密 Ren'Py 游戏"
+description: "不想用命令行？renmori gui 提供基于 Tkinter 的图形界面，在窗口中完成 Ren'Py 游戏的加密保护、校验与 renmori.toml 编辑"
 ---
 
 # renmori gui

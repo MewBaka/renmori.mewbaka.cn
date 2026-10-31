@@ -1,6 +1,6 @@
 ---
-title: Architecture
-description: The overall design of RenMori, covering the performance-first principle, the four protection layers, per-build polymorphism, the open-core split, the anti-reverse-engineering model, platform integration, licensing and milestones
+title: "Architecture: How Ren'Py Games Are Protected"
+description: "How RenMori protects Ren'Py games: the performance-first principle, four protection layers, per-build polymorphism, the open-core split, anti-reverse-engineering, platforms and licensing."
 ---
 
 # Architecture

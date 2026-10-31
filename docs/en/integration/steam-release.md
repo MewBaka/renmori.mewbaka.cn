@@ -1,6 +1,6 @@
 ---
-title: Releasing to Steam
-description: Publish a protected Ren'Py distribution build to Steam in the order build, protect, SteamPipe upload, with depot layout, launch options and Steam compatibility notes
+title: "Releasing an Encrypted Ren'Py Game on Steam"
+description: "Ship a protected Ren'Py game to Steam in the order build, protect, SteamPipe upload, with depot layout, launch options and Steam Overlay and DRM compatibility notes."
 ---
 
 # Releasing to Steam

@@ -32,4 +32,14 @@ npm run build
 
 ## 部署
 
-Vercel 读取 `vercel.json`：构建命令为 `npm run build`，输出目录为 `doc_build`，并开启 `cleanUrls` 以匹配 Rspress 的 `route.cleanUrls`
+Vercel 读取 `vercel.json`：构建命令为 `npm run build`，输出目录为 `doc_build`，并开启 `cleanUrls` 以匹配 Rspress 的 `route.cleanUrls`。此外：
+
+- 带末尾斜杠的文档地址 308 重定向到无斜杠版本（语言首页 `/en/`、`/ja/` 除外，它们的 canonical 本身带斜杠）
+- `.md` 副本与 `llms*.txt` 返回 `X-Robots-Tag: noindex`，避免与 HTML 页面重复收录
+- `/static/` 下带哈希的资源设置一年的 `immutable` 缓存
+
+## SEO 约定
+
+- 每页 frontmatter 的 `title` 写成「页面名：搜索关键词」，侧边栏仍显示短名称（由各目录 `_meta.json` 的 `label` 固定）
+- 首页标题由 frontmatter 的 `titleSuffix` 拼接为 `RenMori - …`，`description` 写完整的一句话卖点
+- 首页 hero 由 `theme/components/HomeHero.tsx` 渲染，品牌名与副标题位于同一个 `<h1>` 内

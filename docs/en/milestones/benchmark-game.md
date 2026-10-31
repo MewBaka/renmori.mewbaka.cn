@@ -1,6 +1,6 @@
 ---
-title: Real-game Benchmark
-description: Sequential reads, random reads and cold-start latency of a real GalGame distribution build, original versus RenMori full protection, measured on the same device
+title: "Real-game Benchmark: Before and After Encryption"
+description: "A real 3.5 GB GalGame measured before and after RenMori encryption: sequential reads, random reads and cold start. Random reads add at most about 0.15 ms; size grows by 0.09%."
 ---
 
 # Real-game Benchmark

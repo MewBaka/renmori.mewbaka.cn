@@ -1,1 +1,25 @@
-["architecture", "threat-model", "container-format", "loader-hook", "script-layer", "plugin-interface", "research"]
+[
+  {
+    "type": "file",
+    "name": "architecture",
+    "label": "Architecture"
+  },
+  {
+    "type": "file",
+    "name": "threat-model",
+    "label": "Threat model"
+  },
+  {
+    "type": "file",
+    "name": "container-format",
+    "label": "Container format v1"
+  },
+  "loader-hook",
+  {
+    "type": "file",
+    "name": "script-layer",
+    "label": "Script layer and engine lockdown"
+  },
+  "plugin-interface",
+  "research"
+]

@@ -1,1 +1,29 @@
-["architecture", "threat-model", "container-format", "loader-hook", "script-layer", "plugin-interface", "research"]
+[
+  {
+    "type": "file",
+    "name": "architecture",
+    "label": "アーキテクチャ"
+  },
+  {
+    "type": "file",
+    "name": "threat-model",
+    "label": "脅威モデル"
+  },
+  {
+    "type": "file",
+    "name": "container-format",
+    "label": "コンテナ形式"
+  },
+  "loader-hook",
+  {
+    "type": "file",
+    "name": "script-layer",
+    "label": "スクリプト層"
+  },
+  "plugin-interface",
+  {
+    "type": "file",
+    "name": "research",
+    "label": "既存手法の調査"
+  }
+]

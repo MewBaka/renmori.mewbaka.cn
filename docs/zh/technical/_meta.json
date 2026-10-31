@@ -1,1 +1,29 @@
-["architecture", "threat-model", "container-format", "loader-hook", "script-layer", "plugin-interface", "research"]
+[
+  {
+    "type": "file",
+    "name": "architecture",
+    "label": "架构"
+  },
+  {
+    "type": "file",
+    "name": "threat-model",
+    "label": "威胁模型"
+  },
+  {
+    "type": "file",
+    "name": "container-format",
+    "label": "容器格式 v1"
+  },
+  "loader-hook",
+  {
+    "type": "file",
+    "name": "script-layer",
+    "label": "脚本层与引擎锁定"
+  },
+  "plugin-interface",
+  {
+    "type": "file",
+    "name": "research",
+    "label": "Ren'Py 保护现状调研"
+  }
+]

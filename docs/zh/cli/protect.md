@@ -1,6 +1,6 @@
 ---
-title: renmori protect
-description: 保护一个 Ren'Py 发行版构建，涵盖输入形式、输出模式、文件处理规则、执行流程与全部参数
+title: "renmori protect：加密 Ren'Py 发行版构建"
+description: "用 renmori protect 加密 Ren'Py 发行版构建或启动器生成的 .zip 压缩包，涵盖输入形式、输出模式、文件处理规则、执行流程与全部参数"
 ---
 
 # renmori protect

@@ -1,1 +1,12 @@
-["introduction", "quick-start"]
+[
+  {
+    "type": "file",
+    "name": "introduction",
+    "label": "はじめに"
+  },
+  {
+    "type": "file",
+    "name": "quick-start",
+    "label": "クイックスタート"
+  }
+]

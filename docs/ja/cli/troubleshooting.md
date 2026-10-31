@@ -1,6 +1,6 @@
 ---
-title: トラブルシューティング
-description: renmori protect と renmori verify の全エラーメッセージ、原因と対処方法、および保護済みビルドの実行時によくある問題
+title: "トラブルシューティング：エラーと対処法"
+description: "renmori protect と renmori verify の全エラーメッセージとその原因・対処法、および暗号化した Ren'Py ゲームの実行時によくある問題"
 ---
 
 # トラブルシューティング

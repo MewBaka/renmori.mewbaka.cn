@@ -62,6 +62,15 @@
   width: 100%;
 }
 
+/* The hero name and text sit in one <h1> (theme/components/HomeHero.tsx);
+   drop the browser's heading defaults so the spans keep the theme's sizes */
+.rm-home-hero__heading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
 .rp-home-hero .rp-home-hero__subtitle {
   white-space: nowrap;
 }
@@ -71,11 +80,11 @@
 }
 
 :lang(en) .rp-home-hero .rp-home-hero__subtitle {
-  font-size: min(3rem, 6.7cqi);
+  font-size: min(3rem, 5.9cqi);
 }
 
 :lang(ja) .rp-home-hero .rp-home-hero__subtitle {
-  font-size: min(3rem, 5.8cqi);
+  font-size: min(3rem, 5.3cqi);
 }
 
 /* The second line continues the first one, so drop the mobile line gap */

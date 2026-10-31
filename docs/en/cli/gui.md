@@ -1,6 +1,6 @@
 ---
-title: renmori gui
-description: A Tkinter graphical interface for protecting, verifying and editing renmori.toml in a window
+title: "renmori gui: Protect Ren'Py Games in a GUI"
+description: "Prefer not to use the command line? renmori gui is a Tkinter interface for protecting and verifying Ren'Py builds and editing renmori.toml in a window."
 ---
 
 # renmori gui

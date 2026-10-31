@@ -1,11 +1,13 @@
 ---
 pageType: home
+titleSuffix: "Ren'Py ゲームの暗号化・アンパック対策ツール（無料）"
+description: "RenMori は無料で商用利用できる Ren'Py 向けの暗号化ツール。スクリプト・立ち絵・CG・音声・フォントを暗号化コンテナに封入し、unrpa や unrpyc による素材の抜き出しと逆コンパイルを防ぐ。ソースの変更は不要で、Steam 配信にも対応"
 
 hero:
   name: RenMori
   text: |
     商用 Ren'Py ビジュアルノベル向けの
-    全データ保護ツール
+    全データ暗号化・アンパック対策ツール
   tagline: MewBaka が公開、プレイ体験を損なうことなくビジュアルノベルを保護
   image:
     src: /renmori-protector.svg

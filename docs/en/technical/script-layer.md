@@ -1,6 +1,6 @@
 ---
-title: Script layer and engine lockdown
-description: The M2 encryption transform for Ren'Py scripts, the block on injected decompilers, and the release lockdown measures
+title: "Script Layer: rpyc Encryption and Anti-Decompilation"
+description: "How RenMori encrypts Ren'Py .rpyc scripts, blocks injected decompilers such as un.rpyc, and locks down release builds."
 ---
 
 # Script layer and engine lockdown

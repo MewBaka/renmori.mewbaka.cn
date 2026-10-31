@@ -1,6 +1,6 @@
 ---
-title: CI との連携
-description: CI パイプラインで RenMori を非対話的に実行し、鍵とクローズドプラグインのキャッシュを管理して、renmori verify をリリースのゲートとして利用する方法を解説する
+title: "CI との連携：Ren'Py ビルドの暗号化を自動化"
+description: "GitHub Actions などの CI パイプラインで RenMori を非対話的に実行し、Ren'Py ビルドを毎回自動で暗号化する。鍵とクローズドプラグインのキャッシュ管理、renmori verify によるリリースゲートも解説する"
 ---
 
 # CI との連携

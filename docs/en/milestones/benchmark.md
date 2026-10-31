@@ -1,6 +1,6 @@
 ---
-title: Performance Benchmark
-description: Asset read throughput, latency, script loading, build time and size overhead of unprotected, baseline-protected and fully protected builds, measured inside a real Ren'Py engine
+title: "Benchmark: Performance Cost of Ren'Py Encryption"
+description: "Measured inside a real Ren'Py engine: asset read throughput, latency, script loading, build time and size overhead of unprotected, baseline and fully protected builds."
 ---
 
 # Performance Benchmark

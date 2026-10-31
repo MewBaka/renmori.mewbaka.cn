@@ -1,38 +1,70 @@
 import * as path from 'node:path';
-import { defineConfig } from '@rspress/core';
+import { defineConfig, type RouteMeta } from '@rspress/core';
 import { pluginSitemap } from '@rspress/plugin-sitemap';
 
 const SITE_URL = 'https://renmori.mewbaka.cn';
 
 const OG_LOCALE: Record<string, string> = { zh: 'zh_CN', en: 'en_US', ja: 'ja_JP' };
 
+// Search terms people actually use: the engine name, the archive/script formats and the tools to stop
 const KEYWORDS: Record<string, string> = {
-  zh: "RenMori, Ren'Py, 视觉小说, GalGame, 资源加密, 封包加密, 反解包, 反编译保护, unrpa, unrpyc, rpa 加密",
-  en: "RenMori, Ren'Py, visual novel, asset encryption, archive protection, anti-unpacking, decompilation protection, unrpa, unrpyc",
-  ja: "RenMori, Ren'Py, ビジュアルノベル, ノベルゲーム, アセット暗号化, アーカイブ保護, アンパック対策, unrpa, unrpyc",
+  zh: "RenMori, Ren'Py 加密, renpy 加密, Ren'Py 防解包, rpa 加密, rpyc 反编译, 视觉小说加密, GalGame 加密, 游戏资源加密, 防破解, unrpa, unrpyc",
+  en: "RenMori, Ren'Py encryption, protect Ren'Py game, encrypt rpa, prevent unrpa, prevent unrpyc, rpyc decompile protection, visual novel asset protection, anti-unpacking",
+  ja: "RenMori, Ren'Py 暗号化, rpa 暗号化, ノベルゲーム 暗号化, ビジュアルノベル 素材保護, 逆コンパイル対策, アンパック対策, unrpa, unrpyc",
 };
 
+// Fallback page description (404) and the structured-data description
 const DESCRIPTION: Record<string, string> = {
-  zh: "面向商业 Ren'Py 视觉小说的全量数据保护工具",
-  en: "Full-data protection for commercial Ren'Py visual novels",
-  ja: "商用 Ren'Py ビジュアルノベル向けの全データ保護ツール",
+  zh: "免费可商用的 Ren'Py 游戏加密与防解包工具，让 unrpa、rpatool、unrpyc 等解包与反编译工具失效",
+  en: "Free encryption and anti-unpacking tool for Ren'Py games that stops unrpa, rpatool and unrpyc",
+  ja: "unrpa や unrpyc による抜き出しを防ぐ、無料で商用利用できる Ren'Py ゲームの暗号化・アンパック対策ツール",
+};
+
+const OG_IMAGE_ALT: Record<string, string> = {
+  zh: "RenMori - Ren'Py 游戏加密与防解包工具",
+  en: "RenMori - Ren'Py encryption and anti-unpacking tool",
+  ja: "RenMori - Ren'Py ゲームの暗号化・アンパック対策ツール",
+};
+
+const ORGANIZATION = {
+  '@type': 'Organization',
+  '@id': 'https://mewbaka.cn/#organization',
+  name: 'MewBaka',
+  alternateName: '笨猫工作室 MewBaka Studio',
+  url: 'https://mewbaka.cn',
 };
 
 // Structured data for the home page of each locale
 const softwareJsonLd = (lang: string, url: string) =>
   `<script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'RenMori',
-    url,
-    description: DESCRIPTION[lang],
-    inLanguage: lang,
-    applicationCategory: 'DeveloperApplication',
-    operatingSystem: 'Windows, macOS, Linux',
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-    downloadUrl: 'https://pypi.org/project/renmori/',
-    codeRepository: 'https://github.com/MewBaka/RenMori',
-    publisher: { '@type': 'Organization', name: 'MewBaka', url: 'https://mewbaka.cn' },
+    '@graph': [
+      ORGANIZATION,
+      {
+        '@type': 'WebSite',
+        '@id': `${url}#website`,
+        name: 'RenMori',
+        url,
+        inLanguage: lang,
+        publisher: { '@id': ORGANIZATION['@id'] },
+      },
+      {
+        '@type': 'SoftwareApplication',
+        name: 'RenMori',
+        url,
+        description: DESCRIPTION[lang],
+        inLanguage: lang,
+        image: `${SITE_URL}/og-image.png`,
+        applicationCategory: 'DeveloperApplication',
+        applicationSubCategory: "Ren'Py game encryption",
+        operatingSystem: 'Windows, macOS, Linux',
+        softwareRequirements: 'Python 3.9+, Ren\'Py 8.x',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        downloadUrl: 'https://pypi.org/project/renmori/',
+        sameAs: ['https://github.com/MewBaka/RenMori', 'https://pypi.org/project/renmori/'],
+        publisher: { '@id': ORGANIZATION['@id'] },
+      },
+    ],
   })}</script>`;
 
 export default defineConfig({
@@ -49,13 +81,18 @@ export default defineConfig({
     ['meta', { property: 'og:image', content: `${SITE_URL}/og-image.png` }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
-    ['meta', { property: 'og:image:alt', content: "RenMori - Ren'Py Resource Protector" }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:image', content: `${SITE_URL}/og-image.png` }],
     ['link', { rel: 'apple-touch-icon', href: '/renmori-icon.png' }],
     (route) => ['link', { rel: 'canonical', href: SITE_URL + route.routePath }],
     (route) => ['meta', { property: 'og:url', content: SITE_URL + route.routePath }],
     (route) => ['meta', { property: 'og:locale', content: OG_LOCALE[route.lang] ?? 'zh_CN' }],
+    ...Object.keys(OG_LOCALE).map(
+      (lang) =>
+        (route: RouteMeta): [string, Record<string, string>] | undefined =>
+          lang === route.lang ? undefined : ['meta', { property: 'og:locale:alternate', content: OG_LOCALE[lang] }],
+    ),
+    (route) => ['meta', { property: 'og:image:alt', content: OG_IMAGE_ALT[route.lang] ?? OG_IMAGE_ALT.zh }],
     (route) => ['meta', { name: 'keywords', content: KEYWORDS[route.lang] ?? KEYWORDS.zh }],
     // Rspress emits the zh/en/ja hreflang links (absolute via siteOrigin); add x-default
     (route) => ['link', { rel: 'alternate', hreflang: 'x-default', href: SITE_URL + route.pureRoutePath }],
@@ -69,19 +106,19 @@ export default defineConfig({
       lang: 'zh',
       label: '简体中文',
       title: 'RenMori',
-      description: '面向商业 Ren\'Py 视觉小说的全量数据保护工具',
+      description: DESCRIPTION.zh,
     },
     {
       lang: 'en',
       label: 'English',
       title: 'RenMori',
-      description: 'Full-data protection for commercial Ren\'Py visual novels',
+      description: DESCRIPTION.en,
     },
     {
       lang: 'ja',
       label: '日本語',
       title: 'RenMori',
-      description: '商用 Ren\'Py ビジュアルノベル向けの全データ保護ツール',
+      description: DESCRIPTION.ja,
     },
   ],
   route: {

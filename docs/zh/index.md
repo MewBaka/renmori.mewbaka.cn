@@ -1,11 +1,13 @@
 ---
 pageType: home
+titleSuffix: "Ren'Py 游戏加密与防解包工具，免费商用"
+description: "RenMori 是免费可商用的 Ren'Py 游戏加密工具，把脚本、立绘、CG、音频、视频与字体封入加密容器，让 unrpa、rpatool、unrpyc 等解包与反编译工具失效。无需改动源码，支持 Windows、macOS、Linux 与 Steam 发行"
 
 hero:
   name: RenMori
   text: |
     面向商业 Ren'Py 视觉小说的
-    全量数据保护工具
+    全量加密与防解包工具
   tagline: 由 MewBaka 发布，无感地保护你的视觉小说游戏
   image:
     src: /renmori-protector.svg

@@ -1,6 +1,6 @@
 ---
-title: 故障排查
-description: renmori protect 与 renmori verify 的全部错误信息、原因与处理方式，以及运行受保护构建时的常见问题
+title: "故障排查：常见错误与解决方法"
+description: "renmori protect 与 renmori verify 的全部错误信息及其原因与解决方法，以及运行加密后的 Ren'Py 游戏时的常见问题"
 ---
 
 # 故障排查

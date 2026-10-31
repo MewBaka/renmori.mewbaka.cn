@@ -1,10 +1,12 @@
 ---
 pageType: home
+titleSuffix: "Free Ren'Py Encryption & Anti-Unpacking Tool"
+description: "Free Ren'Py encryption for visual novels: lock scripts, CGs, audio and fonts in an encrypted container so unrpa, rpatool and unrpyc fail. No source changes, Steam-ready."
 
 hero:
   name: RenMori
   text: |
-    Full-data protection for
+    Encryption and anti-unpacking for
     commercial Ren'Py visual novels
   tagline: Released by MewBaka, protecting your visual novel without getting in the way
   image:

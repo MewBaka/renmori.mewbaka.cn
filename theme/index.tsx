@@ -4,6 +4,7 @@ import {
   Layout as BaseLayout,
 } from '@rspress/core/theme-original';
 import { HomeData } from './components/HomeData';
+import { HomeHero } from './components/HomeHero';
 import { InstallTabs } from './components/InstallTabs';
 
 function HomeLayout() {
@@ -28,5 +29,6 @@ function Layout() {
   return <BaseLayout afterDocFooter={<SiteFooter />} />;
 }
 
-export { HomeLayout, Layout };
+// HomeHero overrides the built-in one, which the built-in HomeLayout imports through @rspress/core/theme
+export { HomeHero, HomeLayout, Layout };
 export * from '@rspress/core/theme-original';

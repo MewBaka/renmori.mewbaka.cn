@@ -1,1 +1,12 @@
-["ci", "steam-release"]
+[
+  {
+    "type": "file",
+    "name": "ci",
+    "label": "CI integration"
+  },
+  {
+    "type": "file",
+    "name": "steam-release",
+    "label": "Releasing to Steam"
+  }
+]

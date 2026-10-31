@@ -1,6 +1,6 @@
 ---
-title: CLI 概览
-description: renmori 命令行工具的定位、安装方式、命令结构、通用选项与环境变量
+title: "CLI 概览：安装与命令结构"
+description: "renmori 命令行工具的定位、通过 pip、uv 或 pipx 的安装方式、protect 与 verify 等子命令结构、通用选项与环境变量"
 ---
 
 # CLI 概览

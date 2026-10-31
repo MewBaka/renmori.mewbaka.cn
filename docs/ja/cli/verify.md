@@ -1,6 +1,6 @@
 ---
-title: renmori verify
-description: ビルドマニフェストに基づいて保護済みビルドの完全性と平文の残存を検証するコマンドで、リリース前のチェックや CI のゲートとして利用できる
+title: "renmori verify：保護済みビルドの検証"
+description: "ビルドマニフェストに基づき、暗号化した Ren'Py ビルドの完全性と平文ファイルの残存を検証する。リリース前のチェックや CI のゲートとして利用できる"
 ---
 
 # renmori verify

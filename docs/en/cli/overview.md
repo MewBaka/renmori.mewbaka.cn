@@ -1,6 +1,6 @@
 ---
-title: CLI Overview
-description: The role of the renmori command-line tool, installation methods, command structure, global options and environment variables
+title: "CLI Overview: Installation and Commands"
+description: "What the renmori command-line tool does, how to install it with pip, uv or pipx, its subcommands such as protect and verify, global options and environment variables."
 ---
 
 # CLI Overview

@@ -1,6 +1,6 @@
 ---
-title: Steam 发行指南
-description: 按构建、保护、SteamPipe 上传的顺序将受保护的 Ren'Py 发行版构建发布到 Steam，并说明 depot 划分、启动选项与 Steam 兼容性
+title: "Steam 发行指南：发布加密的 Ren'Py 游戏"
+description: "按构建、加密、SteamPipe 上传的顺序把受保护的 Ren'Py 游戏发布到 Steam，并说明 depot 划分、启动选项以及与 Steam 叠加层、DRM 的兼容性"
 ---
 
 # Steam 发行指南

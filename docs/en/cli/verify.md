@@ -1,6 +1,6 @@
 ---
-title: renmori verify
-description: Verify the integrity and plaintext leftovers of a protected build against its build manifest, for use as a pre-release check or CI gate
+title: "renmori verify: Check a Protected Build"
+description: "Check a protected Ren'Py build against its build manifest for integrity and leftover plaintext files, as a pre-release check or CI gate."
 ---
 
 # renmori verify

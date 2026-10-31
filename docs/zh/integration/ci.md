@@ -1,6 +1,6 @@
 ---
-title: CI 集成
-description: 在 CI 流水线中以非交互方式运行 RenMori，管理密钥与闭源插件缓存，并以 renmori verify 作为发布门禁
+title: "CI 集成：在流水线中自动加密 Ren'Py 构建"
+description: "在 GitHub Actions 等 CI 流水线中以非交互方式运行 RenMori，自动加密每次 Ren'Py 发行版构建，管理密钥与闭源插件缓存，并以 renmori verify 作为发布门禁"
 ---
 
 # CI 集成

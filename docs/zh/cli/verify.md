@@ -1,6 +1,6 @@
 ---
-title: renmori verify
-description: 依据构建清单校验受保护构建的完整性与明文残留，可作为发布前检查或 CI 门禁
+title: "renmori verify：校验加密后的构建"
+description: "依据构建清单校验加密后的 Ren'Py 构建是否完整、是否残留明文资源，可作为发布前检查或 CI 门禁"
 ---
 
 # renmori verify

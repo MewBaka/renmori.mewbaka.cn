@@ -1,6 +1,6 @@
 ---
-title: Threat model
-description: What client-side protection can and cannot do, which attacks RenMori stops and which it does not, and the claim the project is allowed to make
+title: "Threat Model: What Ren'Py Encryption Can Stop"
+description: "What client-side Ren'Py protection can and cannot do: RenMori stops off-the-shelf tools like unrpa and unrpyc and automated extraction, but not memory dumps or expert targeted reverse engineering."
 ---
 
 # Threat model

@@ -1,1 +1,14 @@
-["m1-results", "m4", "benchmark", "benchmark-game"]
+[
+  "m1-results",
+  "m4",
+  {
+    "type": "file",
+    "name": "benchmark",
+    "label": "性能基准"
+  },
+  {
+    "type": "file",
+    "name": "benchmark-game",
+    "label": "真实游戏实测"
+  }
+]

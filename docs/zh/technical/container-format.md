@@ -1,5 +1,5 @@
 ---
-title: 容器格式 v1
+title: "容器格式 v1 规范"
 description: RenMori 基线容器格式 v1 的公开规范，包括文件布局、头部与索引结构、分块加密、HKDF 密钥派生、nonce 与 AAD 方案
 ---
 

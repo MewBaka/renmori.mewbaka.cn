@@ -1,6 +1,6 @@
 ---
-title: 脚本层与引擎锁定
-description: M2 阶段对 Ren'Py 脚本的加密变换、对注入式反编译器的阻断以及发行版锁定措施
+title: "脚本层：rpyc 加密与防反编译"
+description: "RenMori 如何加密 Ren'Py 的 .rpyc 脚本、阻断 un.rpyc 等注入式反编译器，以及发行版的引擎锁定措施"
 ---
 
 # 脚本层与引擎锁定

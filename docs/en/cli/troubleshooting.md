@@ -1,6 +1,6 @@
 ---
-title: Troubleshooting
-description: All error messages of renmori protect and renmori verify with their causes and resolutions, and common issues when running a protected build
+title: "Troubleshooting: Errors and Fixes"
+description: "Every renmori protect and renmori verify error message with its cause and fix, plus common issues when running an encrypted Ren'Py build."
 ---
 
 # Troubleshooting

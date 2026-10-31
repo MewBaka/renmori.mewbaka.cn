@@ -1,6 +1,6 @@
 ---
-title: renmori protect
-description: Ren'Py の配布用ビルドを保護するコマンドについて、入力形式、出力モード、ファイル処理ルール、実行手順と全オプションを解説する
+title: "renmori protect：Ren'Py 配布用ビルドの暗号化"
+description: "renmori protect で Ren'Py の配布用ビルドやランチャーが生成した .zip を暗号化する。入力形式、出力モード、ファイル処理ルール、実行手順と全オプションを解説する"
 ---
 
 # renmori protect

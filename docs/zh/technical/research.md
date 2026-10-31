@@ -1,6 +1,6 @@
 ---
-title: Ren'Py 保护现状调研
-description: 对现有 Ren'Py 封包与脚本格式、攻击方工具、既有保护尝试以及官方与社区观点的调研，以及这些结论对 RenMori 设计的影响
+title: "Ren'Py 加密与解包现状调研"
+description: "调研 Ren'Py 的 RPA 封包与 rpyc 脚本格式、unrpa 与 unrpyc 等解包工具、既有加密保护尝试以及官方与社区观点，以及这些结论如何影响 RenMori 的设计"
 ---
 
 # Ren'Py 保护现状调研

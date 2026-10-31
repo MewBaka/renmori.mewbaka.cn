@@ -1,1 +1,30 @@
-["overview", "protect", "verify", "gui", "configuration", "output", "plugin", "troubleshooting"]
+[
+  {
+    "type": "file",
+    "name": "overview",
+    "label": "CLI Overview"
+  },
+  {
+    "type": "file",
+    "name": "protect",
+    "label": "renmori protect"
+  },
+  {
+    "type": "file",
+    "name": "verify",
+    "label": "renmori verify"
+  },
+  {
+    "type": "file",
+    "name": "gui",
+    "label": "renmori gui"
+  },
+  "configuration",
+  "output",
+  "plugin",
+  {
+    "type": "file",
+    "name": "troubleshooting",
+    "label": "Troubleshooting"
+  }
+]

@@ -1,6 +1,6 @@
 ---
-title: renmori protect
-description: Protect a Ren'Py distribution build, covering input forms, output modes, file handling rules, the execution flow and all options
+title: "renmori protect: Encrypt a Ren'Py Build"
+description: "Encrypt a Ren'Py distribution build or launcher .zip with renmori protect: input forms, output modes, file handling rules, the execution flow and every option."
 ---
 
 # renmori protect

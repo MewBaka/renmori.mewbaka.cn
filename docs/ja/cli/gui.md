@@ -1,6 +1,6 @@
 ---
-title: renmori gui
-description: Tkinter ベースのグラフィカルインターフェースで、保護・検証・renmori.toml の編集をウィンドウ上で行う
+title: "renmori gui：GUI で Ren'Py ゲームを保護"
+description: "コマンドラインを使わずに、Tkinter ベースの GUI で Ren'Py ビルドの保護・検証と renmori.toml の編集をウィンドウ上で行う"
 ---
 
 # renmori gui
