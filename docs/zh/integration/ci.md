@@ -130,12 +130,18 @@ jobs:
           # renpy.sh "$PWD" distribute   # or your existing build script
           echo "produce ./dist/MyGame-pc here"
 
+      # Full protection (the default) uses the closed plugin, downloaded once from
+      # the public release and verified against SHA256SUMS. Cache it between runs;
+      # keep the key's tag in sync with the plugin release tag renmori pulls.
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/renmori/plugin
+          key: renmori-plugin-${{ runner.os }}-plugin-v1.0.0
+
       - name: Protect
-        env:
-          # Optional: manage keys yourself via secrets. Omit both to let renmori
-          # generate a fresh random key per build (recommended for most teams).
-          RENMORI_MASTER_KEY: ${{ secrets.RENMORI_MASTER_KEY }}
-          RENMORI_SCRIPT_KEY: ${{ secrets.RENMORI_SCRIPT_KEY }}
+        # The plugin derives its own keys, so no key secrets are needed here. Key
+        # environment variables apply only to --strength baseline, and only when
+        # renmori.toml names them in its [keys] section.
         run: |
           renmori protect ./dist/MyGame-pc -o ./dist/MyGame-pc-protected --quiet
 
@@ -153,9 +159,9 @@ jobs:
 1. 将该文件复制到项目的 `.github/workflows/protect.yml`
 2. 将 Build the game 步骤替换为项目实际的 Ren'Py 构建命令，该步骤须产出一个包含 `game/` 子目录的目录
 3. 按需调整触发条件；示例在手动触发或推送 `v*` 标签时运行
-4. 按需加入上文的插件缓存步骤，避免每次运行重复下载插件
+4. 示例已包含插件缓存步骤；升级 RenMori 后若插件发布标签变化，应同步更新缓存键
 
-RenMori 只在 CI runner（构建环境）上运行；受保护的运行时随游戏一同分发，玩家端不需要额外安装 Python。示例在默认强度下运行，因此会在 runner 上获取闭源插件。Protect 步骤中的密钥环境变量仅在使用基线格式且 `renmori.toml` 的 `[keys]` 配置节指定了这些变量名时生效，详见上文的密钥管理。
+RenMori 只在 CI runner（构建环境）上运行；受保护的运行时随游戏一同分发，玩家端不需要额外安装 Python。示例在默认强度下运行，因此会在 runner 上获取闭源插件。插件自行派生密钥，因此 Protect 步骤无需配置密钥。密钥环境变量仅在使用基线格式且 `renmori.toml` 的 `[keys]` 配置节指定了这些变量名时生效，详见上文的密钥管理。
 
 ## 针对真实引擎的端到端校验（可选）
 

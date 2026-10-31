@@ -130,12 +130,18 @@ jobs:
           # renpy.sh "$PWD" distribute   # or your existing build script
           echo "produce ./dist/MyGame-pc here"
 
+      # Full protection (the default) uses the closed plugin, downloaded once from
+      # the public release and verified against SHA256SUMS. Cache it between runs;
+      # keep the key's tag in sync with the plugin release tag renmori pulls.
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/renmori/plugin
+          key: renmori-plugin-${{ runner.os }}-plugin-v1.0.0
+
       - name: Protect
-        env:
-          # Optional: manage keys yourself via secrets. Omit both to let renmori
-          # generate a fresh random key per build (recommended for most teams).
-          RENMORI_MASTER_KEY: ${{ secrets.RENMORI_MASTER_KEY }}
-          RENMORI_SCRIPT_KEY: ${{ secrets.RENMORI_SCRIPT_KEY }}
+        # The plugin derives its own keys, so no key secrets are needed here. Key
+        # environment variables apply only to --strength baseline, and only when
+        # renmori.toml names them in its [keys] section.
         run: |
           renmori protect ./dist/MyGame-pc -o ./dist/MyGame-pc-protected --quiet
 
@@ -153,9 +159,9 @@ To use it:
 1. Copy the file to `.github/workflows/protect.yml` in your project
 2. Replace the Build the game step with your actual Ren'Py build command; it must produce a directory that contains a `game/` subdirectory
 3. Adjust the triggers as needed; the example runs on manual dispatch and on pushes of `v*` tags
-4. Optionally add the plugin cache step shown above so the plugin is not downloaded on every run
+4. The example already includes the plugin cache step; when an upgrade of RenMori changes the plugin release tag, update the cache key to match
 
-RenMori runs only on the CI runner (the build environment); the protected runtime ships inside the game, and players need no separate Python installation. The example runs at the default strength and therefore obtains the closed plugin on the runner. The key variables in the Protect step take effect only with the baseline format and only when the `[keys]` section of `renmori.toml` names them, as described under Key management above.
+RenMori runs only on the CI runner (the build environment); the protected runtime ships inside the game, and players need no separate Python installation. The example runs at the default strength and therefore obtains the closed plugin on the runner. The plugin derives its own keys, so the Protect step needs no key configuration. Key variables take effect only with the baseline format and only when the `[keys]` section of `renmori.toml` names them, as described under Key management above.
 
 ## End-to-end check against a real engine (optional)
 

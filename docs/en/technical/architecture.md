@@ -7,7 +7,11 @@ description: The overall design of RenMori, covering the performance-first princ
 
 RenMori consists of a **build-time tool** and a **native runtime core**. It takes an already built Ren'Py 8.x (Python 3) distribution build and produces a protected one, with no changes to the game source.
 
-A native launcher is only one of four layers. The other three (assets, scripts and the engine) are where the actual protection lives.
+A native launcher is only one of five layers. The other four (assets, scripts, the engine and per-build polymorphism) are where the actual protection lives.
+
+:::info Status
+This page describes the target design. The shipped open baseline differs in places: the runtime loads as a Ren'Py extension (`game/renmori.rpe`) rather than through a native launcher; scripts ship as `.rpyc` whose pickle payload is AES-GCM-encrypted under an independent key rather than in a custom AST format; and decryption runs through a Python reference reader that calls the platform's AES via `ctypes`. Per-build polymorphism, runtime key derivation and the native launcher belong to the closed plugin. For what has been delivered and verified, see [M1 results](../milestones/m1-results.md), [Script layer and engine lockdown](./script-layer.md) and [M4](../milestones/m4.md).
+:::
 
 ## Global first principle: performance wins
 
@@ -19,7 +23,7 @@ Any protection measure that conflicts with runtime performance is dropped or wea
 - **Polymorphism carries the protection**: it is a build-time transform with zero runtime cost, and the strategy is "not breakable in bulk" rather than "defended at runtime"
 - **Acceptance line**: a protected build is indistinguishable from an unprotected one in frame time, scene transitions, and CG and video playback; if a measure cannot meet that, the measure goes, not the performance
 
-## The four layers
+## The five layers
 
 ### 1. Assets (every file, fonts included)
 
@@ -39,7 +43,7 @@ Any protection measure that conflicts with runtime performance is dropped or wea
 
 - The `renpy/` engine code and the Python standard library are packed and encrypted, with a startup integrity check against tampering
 - **Whitelist loading**: only build-time-signed scripts and modules load, and stray `.rpy` or `.rpyc` files dropped into the game directory are refused, which blocks `un.rpyc`-style injection decompilers
-- Distribution builds disable the developer console, developer mode and the data-exporting CLI subcommands (compile, lint, dialogue export and so on)
+- Distribution builds disable the developer console, developer mode and the data-exporting CLI subcommands (`compile`, `dialogue`, `translate`, `add_from`, `merge_strings`); `lint` and `run` stay available
 
 ### 4. Native launcher (the shell)
 
@@ -70,7 +74,7 @@ The open parts are usable on their own, at baseline strength (a fixed, predictab
 - The **key-derivation obfuscation**: the key is ultimately derivable on the client, but *how* it is derived and hidden is what raises the reverse-engineering cost
 - The **native anti-tamper and key-recovery runtime**: shipped as a precompiled binary without source; it ships with the game and is therefore ultimately reversible, so keeping it closed only raises the bar
 
-**Delivery:** the open CLI invokes the closed precompiled binary at build time. This is CI-friendly, works offline and suits free distribution. The two communicate over a **stable, documented process interface** (a CLI over stdin/stdout, or local IPC: the input is the build artifact path plus configuration, and the output is the protected artifact plus a manifest). The interface is open; the implementation is not. There is one binary per platform. See [Plugin interface](./plugin-interface.md).
+**Delivery:** the open CLI invokes the closed precompiled binary at build time. This is CI-friendly, runs offline once the plugin is provisioned, and suits free distribution. The two communicate over a **stable, documented process interface** (a CLI over stdin/stdout, or local IPC: the input is the build artifact path plus configuration, and the output is the protected artifact plus a manifest). The interface is open; the implementation is not. There is one binary per platform. See [Plugin interface](./plugin-interface.md).
 
 Optionally, the runtime accepts only build fingerprints signed by the official closed binary, so a weak, self-written polymorphism layer cannot impersonate it.
 
@@ -125,12 +129,14 @@ For the release flow, see [Releasing to Steam](../integration/steam-release.md).
 ## Milestones
 
 - **M0**: this design documentation
-- **M1**: asset-layer proof of concept (Windows): encrypted container and loader takeover; images, audio, video and fonts load; `unrpa`, `rpatool`, `RenPack` and `RenpyEx` all fail; the protected-versus-unprotected performance benchmark on a CG- and video-heavy sample passes (see [M1 results](../milestones/m1-results.md))
-- **M2**: script and engine layers: custom AST format, signed-whitelist loading, release lockdown and refusal of injected scripts (see [Script layer and engine lockdown](./script-layer.md))
+- **M1**: asset-layer proof of concept (target platform Windows; verified on macOS/arm64): encrypted container and loader takeover; images, audio, video and fonts load; `unrpa` fails and no `.rpyc` or `.rpy` remains on disk; the windowed frame-time benchmark is tracked separately (see [M1 results](../milestones/m1-results.md))
+- **M2**: script and engine layers: script payload encryption under an independent key, refusal of on-disk scripts and release lockdown (the custom AST format is part of the closed plugin) (see [Script layer and engine lockdown](./script-layer.md))
 - **M3**: single-command CLI and CI: a standard Ren'Py build artifact as input, a configuration file, exit codes, a build manifest and a GitHub Actions sample (see [CI integration](../integration/ci.md))
 - **M4**: per-build polymorphism; macOS (automatic ad-hoc signing, optional notarization) and Linux/Steam Deck launchers; verification of the Steam overlay, Steamworks and Proton/Steam Deck (see [M4](../milestones/m4.md))
 
 ## Verification criteria
+
+These are the target acceptance criteria. Current results are recorded in [M1 results](../milestones/m1-results.md), [Script layer and engine lockdown](./script-layer.md) and [M4](../milestones/m4.md).
 
 - **Functional**: the protected sample game runs and can be completed on all three platforms, with every asset and all story content correct
 - **Protection**: `unrpa`, `rpatool`, `RenPack`, `RenpyEx` and `unrpyc` (including `--try-harder` and `un.rpyc` injection) all fail, and no plaintext file is on disk at any time, fonts included

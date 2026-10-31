@@ -26,6 +26,8 @@ The realistic levers, in order of value:
 3. **Make old breaks age out**: each release rotates the scheme, so a leaked or reversed older build does not help against newer ones
 4. **No plaintext on disk**: at no point is any file, fonts included, left decrypted on the filesystem
 
+Verification status of item 1: `unrpa`, `unrpyc` (including `--try-harder`), `rpycdec` and planted on-disk scripts are covered by the records in [M1 results](../milestones/m1-results.md) and [Script layer and engine lockdown](./script-layer.md). `rpatool`, `RenPack` and `RenpyEx` have not yet been run against a protected build; they read the same RPA archives and `.rpyc` files, which no longer exist on disk in a protected build.
+
 ## Attacks RenMori does not stop
 
 State these plainly to users:
@@ -40,4 +42,4 @@ Truly stopping injected extractors would require kernel-level anti-cheat, which 
 
 > RenMori makes every standard Ren'Py unpacking and decompiling tool fail, leaves no plaintext on disk, and makes every build different so that no universal unpacker can exist. It raises the cost of extraction to dedicated, per-game, per-version expert effort. It does not and cannot make a game uncrackable.
 
-Anything stronger than that is not supportable and must not appear in documentation, the README or marketing material. The EULA carries a matching no-warranty-of-unbreakability clause.
+Anything stronger than that is not supportable and must not appear in documentation, the README or marketing material. The [RenMori License](https://github.com/MewBaka/RenMori/blob/main/LICENSE) carries matching no-warranty and limitation-of-liability terms; see the [Disclaimer](../license/disclaimer.md).

@@ -44,7 +44,7 @@ Every contribution must respect the following principles. These are hard rules, 
 1. **Performance wins**: no measure that regresses runtime performance is merged, including frame time, scene transitions, and CG and video playback. Nothing anti-debug or self-checking may be added on the hot path
 2. **No plaintext on disk**: plaintext resources must never be left on disk under any circumstances, fonts included
 3. **Decrypt data only; never generate or execute decrypted code at runtime**: this allows the macOS version to run without additional entitlements; see [Architecture](../technical/architecture.md)
-4. **No telemetry, no phone-home**: the loader framework is open precisely so that users can verify this. Do not add any network calls
+4. **No telemetry, no phone-home**: the loader framework is open precisely so that users can verify this. The runtime shipped in games makes no network requests, and the build-time CLI accesses the network only to download the closed plugin from the public release (verified against `SHA256SUMS`). Do not add any other network calls
 5. **Honesty about protection**: code comments, documentation and output messages must not contain claims that exceed what the [Threat model](../technical/threat-model.md) allows, and must not use wording such as "uncrackable"
 
 ## Code contribution workflow

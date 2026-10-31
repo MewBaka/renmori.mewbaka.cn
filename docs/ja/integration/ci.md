@@ -130,12 +130,18 @@ jobs:
           # renpy.sh "$PWD" distribute   # or your existing build script
           echo "produce ./dist/MyGame-pc here"
 
+      # Full protection (the default) uses the closed plugin, downloaded once from
+      # the public release and verified against SHA256SUMS. Cache it between runs;
+      # keep the key's tag in sync with the plugin release tag renmori pulls.
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/renmori/plugin
+          key: renmori-plugin-${{ runner.os }}-plugin-v1.0.0
+
       - name: Protect
-        env:
-          # Optional: manage keys yourself via secrets. Omit both to let renmori
-          # generate a fresh random key per build (recommended for most teams).
-          RENMORI_MASTER_KEY: ${{ secrets.RENMORI_MASTER_KEY }}
-          RENMORI_SCRIPT_KEY: ${{ secrets.RENMORI_SCRIPT_KEY }}
+        # The plugin derives its own keys, so no key secrets are needed here. Key
+        # environment variables apply only to --strength baseline, and only when
+        # renmori.toml names them in its [keys] section.
         run: |
           renmori protect ./dist/MyGame-pc -o ./dist/MyGame-pc-protected --quiet
 
@@ -153,9 +159,9 @@ jobs:
 1. このファイルをプロジェクトの `.github/workflows/protect.yml` にコピー
 2. Build the game ステップを実際の Ren'Py のビルドコマンドに置き換える。このステップは `game/` サブディレクトリを含むディレクトリを生成する必要がある
 3. 必要に応じてトリガーを調整。この例は手動実行時と `v*` タグのプッシュ時に実行される
-4. 必要に応じて上記のプラグインキャッシュのステップを追加し、実行のたびにプラグインがダウンロードされないようにする
+4. この例にはプラグインキャッシュのステップが含まれている。RenMori の更新によってプラグインのリリースタグが変わった場合は、キャッシュキーも合わせて更新する
 
-RenMori が動作するのは CI のランナー（ビルド環境）上のみです。保護済みのランタイムはゲームに同梱されるため、プレイヤーが Python を別途インストールする必要はありません。この例はデフォルトの強度で実行されるため、ランナー上でクローズドプラグインを取得します。Protect ステップの鍵の環境変数が効果を持つのは、ベースライン形式を使用し、かつ `renmori.toml` の `[keys]` セクションでそれらの名前を指定した場合に限られます。詳しくは上記の「鍵の管理」を参照してください。
+RenMori が動作するのは CI のランナー（ビルド環境）上のみです。保護済みのランタイムはゲームに同梱されるため、プレイヤーが Python を別途インストールする必要はありません。この例はデフォルトの強度で実行されるため、ランナー上でクローズドプラグインを取得します。プラグインは独自に鍵を導出するため、Protect ステップで鍵を設定する必要はありません。鍵の環境変数が効果を持つのは、ベースライン形式を使用し、かつ `renmori.toml` の `[keys]` セクションでそれらの名前を指定した場合に限られます。詳しくは上記の「鍵の管理」を参照してください。
 
 ## 実際のエンジンによるエンドツーエンドの検証（任意）
 

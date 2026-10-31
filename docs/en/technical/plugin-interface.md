@@ -5,7 +5,7 @@ description: The stable process contract between the open renmori command-line t
 
 # Plugin interface
 
-RenMori is open-core. The open `renmori` command-line tool is the integration point: it parses configuration, prepares the output and backup, drives the user-facing flow, and always ships the baseline container format. The strong protection (the per-build polymorphism engine, runtime key derivation, and the native core and launcher) lives in a closed plugin that is distributed as a prebuilt component and never as source.
+RenMori is open-core. The open `renmori` command-line tool is the integration point: it parses configuration, prepares the output and backup, drives the user-facing flow, and includes the open baseline container format. The strong protection (the per-build polymorphism engine, runtime key derivation, and the native core and launcher) lives in a closed plugin that is distributed as a prebuilt component and never as source.
 
 This page defines the stable process contract between the two. The contract is public so that the open tool and the closed plugin can be versioned and released independently; only the plugin's implementation is closed.
 
@@ -15,13 +15,18 @@ The open tool locates the plugin in this order:
 
 - The `--plugin <path>` argument to `renmori protect`
 - The `RENMORI_PLUGIN` environment variable
-- No plugin found: the tool runs the baseline format and refuses any non-baseline `strength`
+- The local cache, keyed by the plugin release tag (`$XDG_CACHE_HOME/renmori/plugin/<tag>` or `~/.cache/renmori/plugin/<tag>`; `%LOCALAPPDATA%\renmori\plugin\<tag>` on Windows)
+- A download of the asset for the host platform from the public release, verified against its `SHA256SUMS` and then cached (skipped when `RENMORI_NO_DOWNLOAD` is set; `RENMORI_PLUGIN_BASE_URL` and `RENMORI_PLUGIN_TAG` override the source and tag)
 
-`<path>` is an executable, or a `.py` script that the open tool runs with the current Python interpreter. A plugin is used only after a successful `capabilities` handshake (see below); a plugin that fails the handshake is treated as absent, and the baseline path is taken.
+Discovery is skipped entirely when `strength` is `baseline`. `<path>` is an executable, or a `.py` script that the open tool runs with the current Python interpreter. A plugin is used only after a successful `capabilities` handshake (see below); a plugin that fails the handshake is treated as absent.
 
-:::tip Current CLI behavior
-Beyond the explicit paths above, the current CLI also checks a local cache and, when needed, downloads the plugin from the public release, verifies it against `SHA256SUMS`, and caches it. With `strength` unset the default is full protection, and the run fails if no plugin is available; `--strength auto` falls back to the baseline without a plugin; `--strength baseline` never downloads the plugin. See [Closed plugin](../cli/plugin.md).
-:::
+When no usable plugin is found, the outcome depends on the requested `strength`:
+
+- Unset (the default, full protection): the run fails rather than silently shipping the baseline
+- `auto`: the tool falls back to the baseline format
+- Any other non-baseline value: the run fails
+
+See [Closed plugin](../cli/plugin.md) for the full description.
 
 ## Transport
 
