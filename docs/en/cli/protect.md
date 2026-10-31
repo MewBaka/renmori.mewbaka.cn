@@ -136,9 +136,9 @@ Uses the closed plugin at `PATH` and no longer searches the cache or downloads a
 
 Applies to the plugin only. A comma-separated list of target platforms, for example `win-x64,linux-x64,mac-universal`; corresponds to the configuration key `platforms`. When not specified, the plugin detects them automatically from the `lib/py3-*` directories in the build.
 
-#### `--launcher`
+#### `--launcher` / `--no-launcher`
 
-Applies to the plugin only. Binds the keys to the native launcher and ships it with the build, so that the keys are reconstructed only when the game is started through that launcher. Corresponds to the configuration key `launcher`.
+Applies to the plugin only and is on by default. Binds the keys to the native launcher and installs the launcher as each platform's entry point (the executable inside the macOS `.app`, `<Name>.exe` on Windows, and `lib/py3-linux-x86_64/<Name>`, which `<Name>.sh` starts, on Linux), keeping the original engine beside it under a `.renmori_real` name, so that the keys are reconstructed only when the game is started through that launcher; `--no-launcher` builds without it. Corresponds to the configuration key `launcher`.
 
 ### Encryption parameters
 

@@ -28,7 +28,8 @@ description: renmori.toml 的查找顺序、与命令行参数的合并规则，
 | 一般设置 | 命令行参数 > 配置文件 > 默认值 |
 | 排除列表 | 不覆盖，按 `steam_appid.txt`（内置）、`keep_on_disk`、`exclude`、命令行 `--exclude` 的顺序合并 |
 | `lockdown` | 配置文件可设置 `true` 或 `false`；命令行 `--no-lockdown` 优先，强制关闭 |
-| `keep_plaintext`、`launcher` | 配置文件或命令行任一处开启即生效 |
+| `keep_plaintext` | 配置文件或命令行任一处开启即生效 |
+| `launcher` | 默认开启；配置文件可设置 `true` 或 `false`，命令行 `--launcher` 或 `--no-launcher` 优先 |
 
 ## `[protect]` 节
 
@@ -41,7 +42,7 @@ description: renmori.toml 的查找顺序、与命令行参数的合并规则，
 | `exclude` | 字符串数组 | `[]` | `--exclude` | 保留在磁盘上、不加密的文件模式 |
 | `keep_on_disk` | 字符串数组 | `[]` | — | 由引擎之外的程序读取、须保留为明文的文件模式；`steam_appid.txt` 始终包含在内 |
 | `platforms` | 字符串数组 | 自动检测 | `--platforms` | 仅插件：目标平台列表 |
-| `launcher` | 布尔 | `false` | `--launcher` | 仅插件：将密钥绑定到原生启动器并随构建分发 |
+| `launcher` | 布尔 | `true` | `--launcher` / `--no-launcher` | 仅插件：将密钥绑定到原生启动器，并将其装配为各平台的入口点 |
 
 ### `strength`
 
@@ -146,7 +147,7 @@ keep_on_disk = ["steam_appid.txt"]
 
 # 仅插件
 # platforms = ["win-x64", "linux-x64", "mac-universal"]
-launcher = false
+# launcher = true
 
 [keys]
 # 仅基线

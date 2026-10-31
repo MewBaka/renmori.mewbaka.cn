@@ -62,7 +62,7 @@ Protect タブは [`renmori protect`](./protect.md) に対応します。
 | Chunk size | `--chunk-size` | 空欄 | 単位はバイトで、ベースラインのみに適用。空欄の場合は設定ファイルの値または既定値 65536 |
 | Platforms | `--platforms` | auto-detect | auto-detect のチェックを外すと `mac-universal`、`linux-x64`、`win-x64` から選択できる。チェックを外していずれも選択しない場合は自動検出として扱う。プラグイン使用時のみ有効 |
 | Lockdown (disable console/developer/export) | `--no-lockdown` | オン | チェックを外すと `--no-lockdown` と同等。オンのままではオプションを渡さず、設定ファイルの `lockdown` を使用し、設定がなければ有効 |
-| Bind a native launcher (--launcher) | `--launcher` | オフ | プラグイン使用時のみ有効 |
+| Native launcher (on by default; uncheck for --no-launcher) | チェックを外すと `--no-launcher` | オン | プラグイン使用時のみ有効 |
 | No backup (in-place) | `--no-backup` | オフ | その場で保護する際に `<dir>_bak` を作成しない。出力先を指定した場合は無効 |
 | Keep plaintext (debug) | `--keep-plaintext` | オフ | アーカイブ化した元ファイルを削除しない。デバッグ専用であり、配布用ビルドには使用しない |
 | Plugin path | `--plugin` | 空欄 | 自動ダウンロードしたプラグインではなく、指定したプラグインのバイナリを使用する |
@@ -99,7 +99,7 @@ Config タブは `renmori.toml` のフォームエディターで、設定ファ
 | Chunk size | `[protect] chunk_size` | 空欄の場合は書き込まない |
 | Platforms | `[protect] platforms` | いずれもチェックしない場合は書き込まず、保護時に自動検出する |
 | Lockdown | `[protect] lockdown` | 常に `true` または `false` として書き込む |
-| Bind a native launcher | `[protect] launcher` | チェックした場合のみ書き込む |
+| Native launcher | `[protect] launcher` | チェックを外した場合のみ `false` を書き込む |
 | Keep plaintext (debug) | `[protect] keep_plaintext` | チェックした場合のみ書き込む |
 | Exclude globs (one per line) | `[protect] exclude` | 一致したファイルは暗号化しない |
 | Keep on disk (one per line) | `[protect] keep_on_disk` | エンジン以外のプログラムが読み取るためにディスク上に残すファイル。`steam_appid.txt` は既定で含まれる |

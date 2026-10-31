@@ -28,7 +28,8 @@ description: renmori.toml の検索順序、コマンドラインオプション
 | 一般的な設定 | コマンドラインオプション > 設定ファイル > デフォルト値 |
 | 除外リスト | 上書きせず、`steam_appid.txt`（組み込み）、`keep_on_disk`、`exclude`、コマンドラインの `--exclude` の順にマージ |
 | `lockdown` | 設定ファイルで `true` または `false` を設定可能。コマンドラインの `--no-lockdown` が優先され、強制的に無効化 |
-| `keep_plaintext`、`launcher` | 設定ファイルとコマンドラインのどちらか一方で有効にすれば有効 |
+| `keep_plaintext` | 設定ファイルとコマンドラインのどちらか一方で有効にすれば有効 |
+| `launcher` | デフォルトで有効。設定ファイルで `true` または `false` を設定可能で、コマンドラインの `--launcher` または `--no-launcher` が優先 |
 
 ## `[protect]` セクション
 
@@ -41,7 +42,7 @@ description: renmori.toml の検索順序、コマンドラインオプション
 | `exclude` | 文字列の配列 | `[]` | `--exclude` | 暗号化せずディスク上に保持するファイルのパターン |
 | `keep_on_disk` | 文字列の配列 | `[]` | — | エンジン以外のプログラムが読み込み、平文のまま保持すべきファイルのパターン。`steam_appid.txt` は常に含まれる |
 | `platforms` | 文字列の配列 | 自動検出 | `--platforms` | プラグインのみ：対象プラットフォームのリスト |
-| `launcher` | ブール値 | `false` | `--launcher` | プラグインのみ：鍵をネイティブランチャーに紐付けてビルドと共に配布 |
+| `launcher` | ブール値 | `true` | `--launcher` / `--no-launcher` | プラグインのみ：鍵をネイティブランチャーに紐付け、各プラットフォームのエントリポイントとして組み込む |
 
 ### `strength`
 
@@ -146,7 +147,7 @@ keep_on_disk = ["steam_appid.txt"]
 
 # プラグインのみ
 # platforms = ["win-x64", "linux-x64", "mac-universal"]
-launcher = false
+# launcher = true
 
 [keys]
 # ベースラインのみ

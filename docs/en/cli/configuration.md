@@ -28,7 +28,8 @@ Reading the configuration file requires Python 3.11 or later; on Python 3.9 or 3
 | General settings | Command-line options > configuration file > defaults |
 | Exclusion lists | Not overridden; merged in the order `steam_appid.txt` (built in), `keep_on_disk`, `exclude`, command-line `--exclude` |
 | `lockdown` | The configuration file may set `true` or `false`; the command-line `--no-lockdown` takes precedence and forces it off |
-| `keep_plaintext`, `launcher` | Take effect when enabled in either the configuration file or on the command line |
+| `keep_plaintext` | Takes effect when enabled in either the configuration file or on the command line |
+| `launcher` | On by default; the configuration file may set `true` or `false`, and the command-line `--launcher` or `--no-launcher` takes precedence |
 
 ## `[protect]` section
 
@@ -41,7 +42,7 @@ Reading the configuration file requires Python 3.11 or later; on Python 3.9 or 3
 | `exclude` | Array of strings | `[]` | `--exclude` | File patterns to keep on disk, unencrypted |
 | `keep_on_disk` | Array of strings | `[]` | — | File patterns read by programs other than the engine that must be kept as plaintext; `steam_appid.txt` is always included |
 | `platforms` | Array of strings | Auto-detected | `--platforms` | Plugin only: list of target platforms |
-| `launcher` | Boolean | `false` | `--launcher` | Plugin only: binds the keys to the native launcher and ships it with the build |
+| `launcher` | Boolean | `true` | `--launcher` / `--no-launcher` | Plugin only: binds the keys to the native launcher and installs it as each platform's entry point |
 
 ### `strength`
 
@@ -146,7 +147,7 @@ keep_on_disk = ["steam_appid.txt"]
 
 # Plugin only
 # platforms = ["win-x64", "linux-x64", "mac-universal"]
-launcher = false
+# launcher = true
 
 [keys]
 # Baseline only

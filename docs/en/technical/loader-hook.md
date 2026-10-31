@@ -32,7 +32,7 @@ Audit of the callers:
 
 Ren'Py scripts are discovered at startup, before any game `.rpy` code runs, so a normal `init python` block is too late. Ren'Py 8.5 provides an official early hook: **Ren'Py Extensions**. `renpy.main.main()` loads, in sorted order, every `*.rpe` (a zip containing `autorun.py`, placed on `sys.path`) and `*.rpe.py` from the Ren'Py base directory, `game/` and `game/libs`, **before** `renpy.loader.index_files()` and before the script is loaded.
 
-RenMori ships its runtime as `game/renmori.rpe`. (`.rpe` is also an attacker injection point: with the optional native launcher (`--launcher`), 1.2.5 and later refuse to start when any `.rpe` other than `game/renmori.rpe` is present in the distribution root, `game/`, `game/libs`, or `renpy/common`, and bind `game/renmori.rpe` itself into key derivation, so a rewritten copy derives the wrong keys; a build without `--launcher` has no such check.)
+RenMori ships its runtime as `game/renmori.rpe`. (`.rpe` is also an attacker injection point: with the native launcher (on by default with the plugin), 1.2.5 and later refuse to start when any `.rpe` other than `game/renmori.rpe` is present in the distribution root, `game/`, `game/libs`, or `renpy/common`, and bind `game/renmori.rpe` itself into key derivation, so a rewritten copy derives the wrong keys; a build made with `--no-launcher` or with the baseline has no such check.)
 
 ## 4. The return type matters: `RWopsIO` and the reopen trap
 

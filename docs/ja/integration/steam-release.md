@@ -44,20 +44,25 @@ renmori protect ./the_question-7.0-market -o ./the_question-7.0-market-protected
 renmori verify  ./the_question-7.0-market-protected
 ```
 
-変更されるのは `game/` のみで、各プラットフォームのランチャーには手を加えません。
+`game/` が変更されます。ネイティブランチャー（デフォルト）を使う場合は、各プラットフォームのエントリポイントもランチャーに置き換えられ、元のエンジンは `.renmori_real` という名前で横に残ります。`--no-launcher` の場合に変更されるのは `game/` のみです。
 
 ```
 the_question-7.0-market-protected/
 ├─ game/
 │   ├─ renmori.rmc        # all assets, encrypted
 │   ├─ renmori.rpe        # runtime loader (Ren'Py loads it automatically)
+│   ├─ renmori_core-*     # native runtime, one per platform
 │   └─ steam_appid.txt    # kept as plaintext (the Steam SDK reads it directly)
-├─ lib/                   # untouched — per-platform Python runtimes
+├─ lib/
+│   └─ py3-linux-x86_64/
+│       ├─ the_question               # native launcher (Linux entry point)
+│       └─ the_question.renmori_real  # original engine
 ├─ renpy/                 # untouched
-├─ the_question.app/      # untouched — macOS launcher
-├─ the_question.exe       # untouched — Windows launcher
+├─ the_question.app/      # Contents/MacOS/the_question is the native launcher
+├─ the_question.exe       # native launcher (Windows entry point)
+├─ the_question.renmori_real.exe  # original engine
 ├─ the_question.py
-├─ the_question.sh        # untouched — Linux launcher
+├─ the_question.sh        # untouched — Linux entry script
 └─ renmori-manifest.json
 ```
 
@@ -109,18 +114,18 @@ Steamworks の Web 管理画面（Installation → General Installation → Laun
 | Linux | `the_question.sh` |
 | macOS | `the_question.app` |
 
-ランチャーが Ren'Py を起動すると、`renmori.rpe` がアセットの読み込みを引き継ぎ、メモリ上でアセットを復号します。この処理はプレイヤーからは意識されません。
+エントリポイント（`--no-launcher` でビルドした場合を除き、ネイティブランチャー）が Ren'Py を起動すると、`renmori.rpe` がアセットの読み込みを引き継ぎ、メモリ上でアセットを復号します。どちらの場合も起動オプションは同じで、この処理はプレイヤーからは意識されません。
 
 ## Steam との互換性に関する注意点
 
 - **Steam DRM を重ねて適用しない**（DRMToolkit による実行ファイルのラッパー）：ランチャーのバイナリを書き換えるため実行時の自己検査と衝突するおそれがあり、それ自体の保護も弱い一方で、RenMori はすでにデータ層を保護している
-- **Steam オーバーレイは通常どおり動作する**：デフォルトのビルド（`--launcher` なし）では、RenMori は Ren'Py のファイル読み込みのみをフックし、プロセスへの注入や DLL インジェクションを一切行わないため、オーバーレイには影響しない。`--launcher` を使う場合は後述のネイティブランチャーの節を参照
+- **Steam オーバーレイは通常どおり動作する**：ランチャーを使わない場合（`--no-launcher`）、RenMori は Ren'Py のファイル読み込みのみをフックし、プロセスへの注入や DLL インジェクションを一切行わないため、オーバーレイには影響しない。ネイティブランチャー（デフォルト）を使う場合は後述のネイティブランチャーの節を参照
 - **実績と Steam クラウドのセーブデータ**は Ren'Py の Python API を経由するため影響を受けない。`renmori.rmc` は静的なファイルであるため、Steam のファイル検証と差分アップデートも通常どおり機能する
 - **`steam_appid.txt`** は Steam SDK が `renpy.loader` を経由せずに直接読み込むため、RenMori はデフォルトでこのファイルを平文のまま残す（`DEFAULT_KEEP_ON_DISK`）。配布用ビルドに残しても問題はなく、外部から読み込まれるその他のファイルは `renmori.toml` の `keep_on_disk` で追加できる（[設定ファイル](../cli/configuration.md)を参照）
 
-## ネイティブランチャー（`--launcher`）と Steam
+## ネイティブランチャーと Steam
 
-`--launcher` はオプションで、デフォルトでは無効です。ゲームのエントリポイントを RenMori のネイティブランチャーに置き換え、起動時の認証を行ってから本来のエンジンを起動します。この手順により Steam オーバーレイと Steamworks SDK が前提とするプロセスモデルが変わるため、Steam との互換性は OS ごとに記録しています：
+1.2.6 以降、プラグインを使う場合はネイティブランチャーがデフォルトで有効になり、`--no-launcher` で無効にできます。ランチャーは各プラットフォームのエントリポイント（Windows では `the_question.exe`、Linux では `the_question.sh` が起動するエンジンスタブ `lib/py3-linux-x86_64/the_question`、macOS では `the_question.app` 内の実行ファイル）として組み込まれるため、起動オプションは変わりません。ランチャーは起動時の認証を行ってから本来のエンジンを起動し、この手順により Steam オーバーレイと Steamworks SDK が前提とするプロセスモデルが変わるため、Steam との互換性は OS ごとに記録しています：
 
 | OS | エンジンの起動方法 | 状況 |
 |---|---|---|
@@ -128,9 +133,9 @@ Steamworks の Web 管理画面（Installation → General Installation → Laun
 | Windows | `_spawnv`（エンジンは子プロセスとして動作） | 未テスト：子プロセスのモデルはオーバーレイの注入に最も影響しやすい |
 | Linux | `execv`（macOS と同じ） | 未テスト：macOS と同様に動作する見込み |
 
-Windows での確認が取れるまでは、Windows 向けの Steam 配布にはデフォルトのビルド（`--launcher` なし）を使うか、`--launcher` を macOS のみに適用することを推奨します。1.2.5 の時点で、ランチャーが自動で組み込まれるのは macOS の `.app` のみです。Windows と Linux ではランチャーは独立したファイルとして同梱され、手動で組み込む必要があります（本来のエンジンを `<name>.renmori_real` に改名し、ランチャーをエントリポイントに置く）。
+リリース前に Windows でオーバーレイと実績を確認し、正常に動作しない場合は Windows 向けの depot を `--no-launcher` でビルドしてください。
 
-1.2.5 以降、ランチャーは `game/` 以下に単体の Ren'Py スクリプトや拡張を見つけると起動を拒否します。そのため、プレイヤーが `.rpy` ファイルとして `game/` に置いた MOD やパッチがあると `--launcher` ビルドは起動しません。こうした内容はビルドに含めて配布してください。1.2.0 以前に `--launcher` 付きで保護したビルドにはこの検査がないため、1.2.5 以降で保護し直してください。
+ランチャーは `game/` 以下に単体の Ren'Py スクリプトや拡張を見つけると起動を拒否します。そのため、プレイヤーが `.rpy` ファイルとして `game/` に置いた MOD やパッチがあるとランチャー付きのビルドは起動しません。こうした内容はビルドに含めて配布してください。1.2.0 以前にランチャー付きで保護したビルドにはこの検査がないため、1.2.5 以降で保護し直してください。
 
 ## チェックリスト
 
@@ -141,4 +146,5 @@ Windows での確認が取れるまでは、Windows 向けの Steam 配布には
 - [ ] OS ごとに起動オプションを設定した（`the_question.exe` / `.sh` / `.app`）
 - [ ] Steam DRM のラッパーを適用していない
 - [ ] 保護済みのフォルダに対してランチャーを再実行**していない**
-- [ ] `--launcher` を使う場合：1.2.5 以降で保護し、検証済みのプラットフォームでのみ有効にした
+- [ ] ネイティブランチャー（デフォルト）を使う場合：Windows で Steam オーバーレイと実績を確認した（いずれも未検証）
+- [ ] 1.2.6 以降で保護した

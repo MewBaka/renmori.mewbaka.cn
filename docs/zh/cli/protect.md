@@ -136,9 +136,9 @@ renmori protect <game-dir | game.zip> [options]
 
 仅对插件生效。以逗号分隔的目标平台列表，例如 `win-x64,linux-x64,mac-universal`，对应配置键 `platforms`。未指定时由插件根据构建中的 `lib/py3-*` 目录自动检测。
 
-#### `--launcher`
+#### `--launcher` / `--no-launcher`
 
-仅对插件生效。将密钥绑定到原生启动器并随构建一同分发，使密钥只在通过该启动器启动游戏时才被重建。对应配置键 `launcher`。
+仅对插件生效，默认开启。将密钥绑定到原生启动器，并将启动器装配为各平台的入口点（macOS 上 `.app` 内的可执行文件、Windows 上的 `<Name>.exe`、Linux 上由 `<Name>.sh` 启动的 `lib/py3-linux-x86_64/<Name>`），原引擎以 `.renmori_real` 名称保留在旁，使密钥只在通过该启动器启动游戏时才被重建；`--no-launcher` 表示不使用启动器。对应配置键 `launcher`。
 
 ### 加密参数
 

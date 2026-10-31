@@ -78,7 +78,7 @@ The plugin copies `source_dir` to `output_dir`, packs every asset and Ren'Py scr
 | `files` | Number of entries packed |
 | `scripts` | Number of scripts transformed |
 | `cores` | One `{platform, filename}` per shipped native core |
-| `launcher` | Per-platform launcher file names, or `null` |
+| `launcher` | Per-platform launcher paths relative to `output_dir` (the installed entry point, or a standalone file), or `null` |
 
 On failure the plugin prints `{"interface": N, "status": "error", "message": "<reason>"}` and exits with a non-zero code. The open tool reports the message, exits with its runtime-failure code, and avoids leaving a partial `output_dir` wherever it can.
 

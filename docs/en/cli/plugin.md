@@ -16,7 +16,7 @@ RenMori uses an open-core architecture. The open-source `renmori` CLI handles pa
 | Container format | The fixed, public container format v1 | A polymorphic format randomized for every build |
 | Keys | Generated per build or read from environment variables, and written in plaintext into the loader extension | Derived by the plugin at runtime; no plaintext key is stored on disk |
 | Script layer | Compiled scripts are re-encrypted with a separate script key | Performed by the plugin, including a per-build AST encoding transformation |
-| Native core and launcher | None | Native core; optional native launcher (`--launcher`) |
+| Native core and launcher | None | Native core; native launcher (on by default, `--no-launcher` turns it off) |
 | Offline operation | Always possible | Possible once the plugin is cached |
 | Defends against | Off-the-shelf unpacking and decompilation tools such as `unrpa` and `unrpyc` | Off-the-shelf tools, as well as generic unpackers written against a single format |
 | Intended use | Development and debugging, fully offline environments, situations in which the plugin cannot be used | Official releases |

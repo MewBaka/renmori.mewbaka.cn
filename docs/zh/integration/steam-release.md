@@ -44,20 +44,25 @@ renmori protect ./the_question-7.0-market -o ./the_question-7.0-market-protected
 renmori verify  ./the_question-7.0-market-protected
 ```
 
-只有 `game/` 发生变化，各平台启动器保持不变：
+`game/` 发生变化；启用原生启动器（默认）时，各平台的入口点也会替换为启动器，原引擎以 `.renmori_real` 名称保留在旁；使用 `--no-launcher` 时只有 `game/` 发生变化：
 
 ```
 the_question-7.0-market-protected/
 ├─ game/
 │   ├─ renmori.rmc        # all assets, encrypted
 │   ├─ renmori.rpe        # runtime loader (Ren'Py loads it automatically)
+│   ├─ renmori_core-*     # native runtime, one per platform
 │   └─ steam_appid.txt    # kept as plaintext (the Steam SDK reads it directly)
-├─ lib/                   # untouched — per-platform Python runtimes
+├─ lib/
+│   └─ py3-linux-x86_64/
+│       ├─ the_question               # native launcher (Linux entry point)
+│       └─ the_question.renmori_real  # original engine
 ├─ renpy/                 # untouched
-├─ the_question.app/      # untouched — macOS launcher
-├─ the_question.exe       # untouched — Windows launcher
+├─ the_question.app/      # Contents/MacOS/the_question is the native launcher
+├─ the_question.exe       # native launcher (Windows entry point)
+├─ the_question.renmori_real.exe  # original engine
 ├─ the_question.py
-├─ the_question.sh        # untouched — Linux launcher
+├─ the_question.sh        # untouched — Linux entry script
 └─ renmori-manifest.json
 ```
 
@@ -109,18 +114,18 @@ Steamworks 提供的 SteamPipe GUI 执行的是相同的操作，将其指向受
 | Linux | `the_question.sh` |
 | macOS | `the_question.app` |
 
-启动器引导 Ren'Py 启动后，由 `renmori.rpe` 接管资源加载并在内存中解密资源，整个过程对玩家透明。
+入口点（除非以 `--no-launcher` 构建，否则即原生启动器）引导 Ren'Py 启动后，由 `renmori.rpe` 接管资源加载并在内存中解密资源；两种情况下启动选项相同，整个过程对玩家透明。
 
 ## Steam 兼容性要点
 
 - **请勿再叠加 Steam DRM**（DRMToolkit 可执行文件包装器）：它会改写启动器二进制文件，可能与运行时自检冲突，且其自身防护较弱，而 RenMori 已对数据层提供保护
-- **Steam 叠加层（Overlay）可正常使用**：在默认构建（不加 `--launcher`）中，RenMori 仅挂钩 Ren'Py 的文件加载，从不进行进程或 DLL 注入，因此 Steam 叠加层工作正常；使用 `--launcher` 时见下文的原生启动器一节
+- **Steam 叠加层（Overlay）可正常使用**：不使用启动器（`--no-launcher`）时，RenMori 仅挂钩 Ren'Py 的文件加载，从不进行进程或 DLL 注入，因此 Steam 叠加层工作正常；使用原生启动器（默认）时见下文的原生启动器一节
 - **成就与云存档**经由 Ren'Py 的 Python API 实现，不受影响；`renmori.rmc` 是静态文件，因此 Steam 的文件校验与增量更新均正常工作
 - **`steam_appid.txt`** 由 Steam SDK 在 `renpy.loader` 之外直接读取，因此 RenMori 默认将其保留为明文（`DEFAULT_KEEP_ON_DISK`）；将其保留在发行版构建中并无风险，其他由外部读取的文件可通过 `renmori.toml` 中的 `keep_on_disk` 添加，详见 [配置文件](../cli/configuration.md)
 
-## 原生启动器（`--launcher`）与 Steam
+## 原生启动器与 Steam
 
-`--launcher` 为可选项，默认不启用，它将游戏入口替换为 RenMori 原生启动器，先完成启动认证，再启动真正的引擎；这一步改变了 Steam 叠加层与 Steamworks SDK 所依赖的进程模型，因此其 Steam 兼容性按平台记录：
+自 1.2.6 起，使用插件时原生启动器默认开启，`--no-launcher` 可关闭。它被装配为各平台的入口点（Windows 上的 `the_question.exe`、Linux 上由 `the_question.sh` 启动的引擎存根 `lib/py3-linux-x86_64/the_question`、macOS 上 `the_question.app` 内的可执行文件），因此启动选项保持不变；它先完成启动认证，再启动真正的引擎，这一步改变了 Steam 叠加层与 Steamworks SDK 所依赖的进程模型，因此其 Steam 兼容性按平台记录：
 
 | 平台 | 启动引擎的方式 | 状态 |
 |---|---|---|
@@ -128,9 +133,9 @@ Steamworks 提供的 SteamPipe GUI 执行的是相同的操作，将其指向受
 | Windows | `_spawnv`（引擎作为子进程运行） | 尚未测试：子进程模型最可能影响叠加层的注入 |
 | Linux | `execv`（与 macOS 相同） | 尚未测试：预期与 macOS 一致 |
 
-在 Windows 上得到确认之前，面向 Windows 的 Steam 发行版建议使用默认构建（不加 `--launcher`），或仅对 macOS 启用 `--launcher`；截至 1.2.5，启动器仅自动装配进 macOS 的 `.app`；在 Windows 与 Linux 上，启动器以独立文件随发行版分发，需手动接入（将真正的引擎重命名为 `<name>.renmori_real`，并将启动器放到入口位置）。
+发行前请在 Windows 上检查叠加层与成就；若不正常，请以 `--no-launcher` 构建 Windows depot。
 
-自 1.2.5 起，启动器在 `game/` 下发现散装的 Ren'Py 脚本或扩展时会拒绝启动，因此玩家以 `.rpy` 文件形式放入 `game/` 的模组或补丁会使 `--launcher` 构建无法启动，这类内容应随构建一并发布；以 1.2.0 或更早版本、带 `--launcher` 加密的构建缺少这项检查，应使用 1.2.5 或更高版本重新加密。
+启动器在 `game/` 下发现散装的 Ren'Py 脚本或扩展时会拒绝启动，因此玩家以 `.rpy` 文件形式放入 `game/` 的模组或补丁会使带启动器的构建无法启动，这类内容应随构建一并发布；以 1.2.0 或更早版本、带启动器加密的构建缺少这项检查，应使用 1.2.5 或更高版本重新加密。
 
 ## 检查清单
 
@@ -141,4 +146,5 @@ Steamworks 提供的 SteamPipe GUI 执行的是相同的操作，将其指向受
 - [ ] 已按操作系统设置启动选项（`the_question.exe` / `.sh` / `.app`）
 - [ ] 未叠加 Steam DRM 包装器
 - [ ] **未**对受保护的文件夹重新运行启动器
-- [ ] 若使用 `--launcher`：已使用 1.2.5 或更高版本加密，且仅在已验证的平台上启用
+- [ ] 使用原生启动器（默认）时：已在 Windows 上检查 Steam 叠加层与成就，二者尚未经过验证
+- [ ] 已使用 1.2.6 或更高版本加密

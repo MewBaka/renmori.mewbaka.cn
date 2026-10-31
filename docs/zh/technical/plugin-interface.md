@@ -78,7 +78,7 @@ stdin 上的请求对象：
 | `files` | 已封装的条目数 |
 | `scripts` | 已变换的脚本数 |
 | `cores` | 每个已分发的原生核心对应一条 `{platform, filename}` |
-| `launcher` | 各平台的启动器文件名，或 `null` |
+| `launcher` | 各平台的启动器路径（相对 `output_dir`，为已装配的入口点或独立文件），或 `null` |
 
 失败时，插件输出 `{"interface": N, "status": "error", "message": "<reason>"}` 并以非零值退出。开源工具会报告该消息，以其运行时失败退出码退出，并尽可能不留下不完整的 `output_dir`。
 
