@@ -94,7 +94,9 @@ export default defineConfig({
     llmsUI: true,
     // Rendered by HomeFooter on the home page and by DocFooter (theme/index.tsx) on doc pages
     footer: {
-      message: '© 2026 笨猫工作室 MewBaka Studio. All Rights Reserved.',
+      // The HarmonyOS Sans license requires a prominent notice that the font is used
+      message:
+        '© 2026 笨猫工作室 MewBaka Studio. All Rights Reserved.<br />Typeface: <a href="/fonts/HarmonyOS-Sans-LICENSE.txt">HarmonyOS Sans</a> © Huawei Device Co., Ltd.',
     },
     socialLinks: [
       {

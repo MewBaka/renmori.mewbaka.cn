@@ -1,3 +1,27 @@
+/* HarmonyOS Sans, self-hosted as unicode-range WOFF2 slices (variable weight 40–900);
+   the license requires the footer credit and docs/public/fonts/HarmonyOS-Sans-LICENSE.txt */
+@import '@1adybug/harmonyos-sans/wght.css';
+
+/* The Latin slice alone, so Japanese pages keep Japanese kanji forms instead of SC glyphs */
+@font-face {
+  font-family: 'HarmonyOS Sans Latin';
+  font-style: normal;
+  font-weight: 40 900;
+  font-display: swap;
+  src: url('~@1adybug/harmonyos-sans/files/font-text-33466a5f5968b53f.woff2') format('woff2');
+  unicode-range: U+20-7E, U+A0-17F;
+}
+
+:root {
+  --rp-font-family-base: 'HarmonyOS Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC',
+    'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+
+:root:lang(ja) {
+  --rp-font-family-base: 'HarmonyOS Sans Latin', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+    'Yu Gothic UI', 'Yu Gothic', Meiryo, 'Noto Sans JP', sans-serif;
+}
+
 /* Brand colors taken from the protector logo (moriG / renG gradients) */
 :root {
   --rp-c-brand: #c65b3b;
@@ -125,4 +149,10 @@
   font-size: 0.875rem;
   font-weight: 500;
   text-align: center;
+}
+
+.rm-doc-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

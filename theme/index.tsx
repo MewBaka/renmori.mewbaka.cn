@@ -20,7 +20,8 @@ function SiteFooter() {
   const { site } = useSite();
   const message = site.themeConfig.footer?.message;
   if (!message) return null;
-  return <footer className="rm-doc-footer">{message}</footer>;
+  // The message comes from our own config and carries markup (line break, license link)
+  return <footer className="rm-doc-footer" dangerouslySetInnerHTML={{ __html: message }} />;
 }
 
 function Layout() {
