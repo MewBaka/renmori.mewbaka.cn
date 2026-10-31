@@ -26,8 +26,10 @@ RenMori takes a game built with Ren'Py 8.x and produces a protected distribution
 It defends against:
 
 - Extraction of assets and scripts with off-the-shelf unpackers and decompilers such as `unrpa`, `rpatool` and `unrpyc`
-- Automated cracking by AI agents that merely invoke existing tools
+- Automated cracking by AI agents that merely invoke existing tools¹
 - Batch, scripted extraction pipelines
+
+¹ RenMori is specifically hardened against automated cracking by AI agents, but this has reached the inherent ceiling of offline client-side DRM: whoever can reproduce the game's real runtime environment, or dump the memory of the running process, obtains the plaintext as the game decrypts it, and protection can only raise the time and cost this takes; only online licensing or hardware binding can go beyond that ceiling, and for GalGames and visual novels such schemes cost far more than they return, so RenMori commits to defeating general-purpose tools and the AI agents that call them, and to requiring new, dedicated expert reverse engineering for every title and version, but does not promise that a game cannot be cracked.
 
 RenMori is not an absolute shield. A game that runs on the player's machine can never be made uncrackable; RenMori raises the cost of cracking as far as possible but cannot withstand expert-level reverse engineering, as described in the [threat model](https://github.com/MewBaka/RenMori/blob/main/docs/threat-model.md). Since most reverse engineers do not invest extensive time in a single title, RenMori provides effective protection for the vast majority of games.
 
