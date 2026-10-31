@@ -6,6 +6,7 @@
   --rm-accent-soft: rgba(198, 91, 59, 0.14);
   --rm-good: #2f8f5b;
   --rm-hatch: rgba(198, 91, 59, 0.38);
+  --rm-neutral: #b4aca6;
 
   max-width: 72rem;
   margin: 3rem auto 4rem;
@@ -17,6 +18,7 @@
   --rm-accent-soft: rgba(217, 115, 79, 0.18);
   --rm-good: #3aa86a;
   --rm-hatch: rgba(217, 115, 79, 0.45);
+  --rm-neutral: #6f6863;
 }
 
 .rm-data__intro {
@@ -253,6 +255,56 @@
 
 .rm-meter__ticks span:last-child {
   transform: translateX(-100%);
+}
+
+/* Grouped bars: original (neutral) against protected (accent), shared axis */
+.rm-bars__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: -0.5rem 0 1rem;
+  color: var(--rp-c-text-2);
+  font-size: 0.8rem;
+}
+
+.rm-bars__key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rm-bars__key::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.rm-bars__key--orig::before {
+  background: var(--rm-neutral);
+}
+
+.rm-bars__key--prot::before {
+  background: var(--rm-accent);
+}
+
+.rm-bars__group {
+  display: grid;
+  gap: 4px;
+}
+
+.rm-bars__group + .rm-bars__group {
+  margin-top: 0.35rem;
+}
+
+.rm-bars__seg--orig {
+  background: var(--rm-neutral);
+}
+
+/* A few MB/s is under 1% of the axis; keep the band visible */
+.rm-bars__band {
+  width: 4px;
+  min-width: 4px;
 }
 
 /* Chunk layout diagram */

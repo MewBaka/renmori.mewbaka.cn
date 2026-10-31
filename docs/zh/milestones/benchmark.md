@@ -9,6 +9,8 @@ description: 在真实 Ren'Py 引擎中对比未保护构建、基线保护构�
 
 测试脚本为仓库中的 [`tools/benchmark.py`](https://github.com/MewBaka/RenMori/blob/main/tools/benchmark.py)，本页数据对应的原始结果见 [`docs/benchmarks/2026-10-31-apple-m1.json`](https://github.com/MewBaka/RenMori/blob/main/docs/benchmarks/2026-10-31-apple-m1.json)。
 
+真实 GalGame 发行版构建上的实测结果见 [真实游戏实测](./benchmark-game.md)。
+
 ## 结论摘要
 
 - 完整保护下，引擎内解密吞吐为 567 至 1529 MB/s，具体取决于单个文件的大小

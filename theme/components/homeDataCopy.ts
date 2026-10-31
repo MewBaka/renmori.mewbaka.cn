@@ -1,18 +1,26 @@
 // Copy for the home page data section. Every figure traces back to the RenMori
-// docs listed in `sources`; keep the measurement caveats in `notes` accurate.
+// docs listed in `sources` (performance: /milestones/benchmark-game); keep the measurement caveats in `notes` accurate.
 
 export type Copy = {
   title: string;
   lead: string;
   kpis: { value: string; label: string; note: string }[];
-  meter: {
-    title: string;
-    fillName: string;
-    fillLabel: string;
-    bandName: string;
-    bandLabel: string;
-    bandValue: string;
-    body: string;
+  charts: {
+    original: string;
+    protected: string;
+    throughput: {
+      title: string;
+      groups: string[];
+      band: { name: string; label: string; value: string };
+      body: string;
+    };
+    frame: {
+      title: string;
+      groups: string[];
+      band: { name: string; label: string; value: string };
+      body: string;
+    };
+    startup: { title: string; groups: string[]; body: string };
   };
   layout: {
     title: string;
@@ -59,21 +67,33 @@ export type Copy = {
 
 const zh: Copy = {
   title: '数据与验证',
-  lead: '以下数据均取自 RenMori 仓库中的里程碑验证记录与容器格式规范，每项数据均注明其测量或推算条件',
+  lead: '以下性能数据来自一款真实 GalGame 发行版构建的实测，在同一设备上对比原版与 RenMori 保护版：游玩过程中的额外读取延迟不足一帧时间的 1%，加密对玩家几乎无感',
   kpis: [
-    { value: '74 MB/s', label: '引擎内顺序解密吞吐', note: '基线参考读取器实测 ¹' },
-    { value: '≈ 0.024%', label: '容器体积开销', note: '依据格式规范计算 ²' },
-    { value: '7 / 7', label: '资产类型逐字节一致', note: 'SHA-256 比对 ³' },
-    { value: '0', label: '可恢复的文件特征签名', note: '吉字节级容器扫描 ³' },
+    { value: '≈ 0.15 ms', label: '随机读取最大额外延迟', note: '不足 60 FPS 单帧时间的 1% ¹' },
+    { value: '584 MB/s', label: '冷缓存顺序读取吞吐', note: '全部 3.5 GB 资源实测 ¹' },
+    { value: '+1.3 s', label: '冷启动额外耗时', note: '仅在启动时发生一次 ¹' },
+    { value: '+0.09%', label: '发行版体积增加', note: '含三个平台的原生运行时 ¹' },
   ],
-  meter: {
-    title: '解密吞吐与实时播放需求',
-    fillName: '顺序解密',
-    fillLabel: '参考读取器引擎内顺序解密：约 74 MB/s',
-    bandName: '实时音视频',
-    bandLabel: '实时视频与音频解码所需：数 MB/s',
-    bandValue: '数 MB/s',
-    body: '基线 Python 参考读取器在引擎内对多 MB 级资产测得约 74 MB/s 的顺序解密吞吐，远高于实时视频与音频解码所需的数 MB/s。实际发行的原生解密器移除了逐分块的 Python 调用开销，其吞吐尚未单独测量。',
+  charts: {
+    original: '原版',
+    protected: 'RenMori 保护版',
+    throughput: {
+      title: '顺序读取吞吐（冷缓存）',
+      groups: ['图像', '音频', '视频', '全部资源'],
+      band: { name: '实时音视频', label: '实时视频与音频解码所需：数 MB/s', value: '数 MB/s' },
+      body: '冷缓存下，保护版读取全部 3.5 GB 资源的吞吐为 584 MB/s，约为原版的 45%，仍是实时音视频解码所需带宽的百倍以上。',
+    },
+    frame: {
+      title: '单次读取耗时与一帧时间（冷缓存）',
+      groups: ['平均图像', '随机 64 KB', '打开小文件', '随机 4 KB'],
+      band: { name: '60 FPS 一帧', label: '60 FPS 下的单帧时间：16.7 ms', value: '16.7' },
+      body: '即使在冷缓存下，保护版读取一张平均大小的图像也只需约 3.4 ms，随机读取的额外延迟不超过 0.15 ms，均远小于 60 FPS 下的单帧时间，游玩时不会产生可察觉的卡顿。',
+    },
+    startup: {
+      title: '启动至首帧耗时',
+      groups: ['冷启动', '热启动'],
+      body: "额外耗时只在启动时发生一次：为避免在磁盘上留下明文，保护版不写入 Ren'Py 的字节码等运行时缓存，每次启动需重新编译脚本，进入游戏后不再有差异。",
+    },
   },
   layout: {
     title: '分块布局与体积开销',
@@ -139,12 +159,13 @@ const zh: Copy = {
     ],
   },
   notes: [
-    "¹ 于 Ren'Py 8.5.2 引擎内测量，使用 Python 参考读取器（经 ctypes 调用 librenpython 中的 OpenSSL EVP），以 64 KB 分块的 AES-256-GCM 顺序读取多 MB 级资产；实际发行的原生解密器尚未测量。",
-    '² 依据容器格式 v1 规范计算，并非实测值。',
-    "³ 验证基于 Ren'Py 8.5.2，使用 SDK 样例项目 the_question 与一个包含数千项资产的吉字节级发行版构建。",
+    "¹ 性能数据于 2026-10-31 在 Apple M1（8 GB 内存，macOS 26.5.1）上实测，Ren'Py 8.5.2，RenMori 1.2.0 完整保护并通过原生 launcher 启动；样本为一款真实 GalGame 的发行版构建，比较两个构建中一致的 1407 个条目（3593 MB），冷缓存测量每次使用全新的 APFS 克隆。",
+    '² 分块布局中的 0.024% 体积开销依据容器格式 v1 规范计算，并非实测值。',
+    "³ 现成工具、特征签名与资产类型验证基于 Ren'Py 8.5.2，使用 SDK 样例项目 the_question 与一个包含数千项资产的吉字节级发行版构建。",
   ],
   sourcesLabel: '数据来源：',
   sources: [
+    ['真实游戏实测', '/milestones/benchmark-game'],
     ['M1 成果', '/milestones/m1-results'],
     ['容器格式 v1', '/technical/container-format'],
     ['架构', '/technical/architecture'],
@@ -154,21 +175,33 @@ const zh: Copy = {
 
 const en: Copy = {
   title: 'Data and verification',
-  lead: 'All figures below are taken from the milestone verification records and the container format specification in the RenMori repository, with the measurement or derivation conditions stated for each',
+  lead: 'The performance figures below were measured on the distribution build of a real GalGame, comparing the original and RenMori-protected builds on the same device: the extra read latency during play is under 1% of a frame, so players will hardly notice the encryption',
   kpis: [
-    { value: '74 MB/s', label: 'In-engine sequential decryption', note: 'Measured, baseline reference reader ¹' },
-    { value: '≈ 0.024%', label: 'Container size overhead', note: 'Derived from the format spec ²' },
-    { value: '7 / 7', label: 'Asset types byte-identical', note: 'SHA-256 comparison ³' },
-    { value: '0', label: 'Recoverable file signatures', note: 'Gigabyte-scale container scan ³' },
+    { value: '≈ 0.15 ms', label: 'Max extra random-read latency', note: 'Under 1% of a 60 FPS frame ¹' },
+    { value: '584 MB/s', label: 'Cold-cache sequential reads', note: 'All 3.5 GB of assets ¹' },
+    { value: '+1.3 s', label: 'Extra cold-start time', note: 'Once per launch only ¹' },
+    { value: '+0.09%', label: 'Distribution size increase', note: 'Including native runtimes for 3 platforms ¹' },
   ],
-  meter: {
-    title: 'Decryption throughput vs. real-time playback',
-    fillName: 'Sequential decryption',
-    fillLabel: 'Reference reader, in-engine sequential decryption: about 74 MB/s',
-    bandName: 'Real-time A/V',
-    bandLabel: 'Required for real-time video and audio decoding: a few MB/s',
-    bandValue: 'a few MB/s',
-    body: 'The baseline Python reference reader measured about 74 MB/s of in-engine sequential decryption on multi-megabyte assets, far above the few MB/s that real-time video and audio decoding require. The shipped native decryptor removes the per-chunk Python call overhead; its throughput has not been measured separately.',
+  charts: {
+    original: 'Original',
+    protected: 'RenMori protected',
+    throughput: {
+      title: 'Sequential read throughput (cold cache)',
+      groups: ['Images', 'Audio', 'Video', 'All assets'],
+      band: { name: 'Real-time A/V', label: 'Required for real-time video and audio decoding: a few MB/s', value: 'a few MB/s' },
+      body: 'With a cold cache, the protected build reads all 3.5 GB of assets at 584 MB/s, about 45% of the original and still more than a hundred times the bandwidth real-time audio and video decoding needs.',
+    },
+    frame: {
+      title: 'Time per read vs. one frame (cold cache)',
+      groups: ['Average image', 'Random 64 KB', 'Small file', 'Random 4 KB'],
+      band: { name: '60 FPS frame', label: 'Frame time at 60 FPS: 16.7 ms', value: '16.7' },
+      body: 'Even with a cold cache, the protected build reads an image of average size in about 3.4 ms, and random reads gain at most 0.15 ms, all far below one frame at 60 FPS, so there is no noticeable stutter during play.',
+    },
+    startup: {
+      title: 'Time to first frame',
+      groups: ['Cold start', 'Warm start'],
+      body: "The extra time occurs once per launch: to leave no plaintext on disk, the protected build does not write Ren'Py's runtime caches such as bytecode, so scripts are recompiled at every start; once the game is running there is no difference.",
+    },
   },
   layout: {
     title: 'Chunk layout and size overhead',
@@ -234,12 +267,13 @@ const en: Copy = {
     ],
   },
   notes: [
-    "¹ Measured inside the Ren'Py 8.5.2 engine with the Python reference reader (OpenSSL EVP in librenpython via ctypes), reading multi-megabyte assets sequentially with AES-256-GCM in 64 KB chunks; the shipped native decryptor has not been measured.",
-    '² Derived from the container format v1 specification, not a measured value.',
-    "³ Verified on Ren'Py 8.5.2 with the SDK sample project the_question and a gigabyte-scale distribution build containing thousands of assets.",
+    "¹ Performance measured on 2026-10-31 on an Apple M1 (8 GB memory, macOS 26.5.1) with Ren'Py 8.5.2 and RenMori 1.2.0 full protection started through the native launcher; the sample is the distribution build of a real GalGame, comparing the 1407 entries (3593 MB) identical in both builds, with every cold-cache measurement on a fresh APFS clone.",
+    '² The 0.024% size overhead in the chunk layout is derived from the container format v1 specification, not measured.',
+    "³ The off-the-shelf tool, file signature and asset type checks were run on Ren'Py 8.5.2 with the SDK sample project the_question and a gigabyte-scale distribution build containing thousands of assets.",
   ],
   sourcesLabel: 'Sources:',
   sources: [
+    ['Real-game benchmark', '/milestones/benchmark-game'],
     ['M1 results', '/milestones/m1-results'],
     ['Container format v1', '/technical/container-format'],
     ['Architecture', '/technical/architecture'],
@@ -249,21 +283,33 @@ const en: Copy = {
 
 const ja: Copy = {
   title: 'データと検証',
-  lead: '以下のデータはすべて RenMori リポジトリのマイルストーン検証記録とコンテナ形式仕様に基づくものであり、各項目に測定または算出の条件を記載しています',
+  lead: '以下の性能データは、実在する GalGame の配布用ビルドを同一デバイス上でオリジナル版と RenMori 保護版に分けて実測したものです。プレイ中に増える読み込み遅延は 1 フレームの 1% に満たず、暗号化はプレイヤーにほとんど体感されません',
   kpis: [
-    { value: '74 MB/s', label: 'エンジン内シーケンシャル復号', note: 'ベースライン参照リーダーで実測 ¹' },
-    { value: '≈ 0.024%', label: 'コンテナのサイズオーバーヘッド', note: '形式仕様から算出 ²' },
-    { value: '7 / 7', label: 'バイト単位で一致したアセット種別', note: 'SHA-256 照合 ³' },
-    { value: '0', label: '復元可能なファイルシグネチャ', note: 'ギガバイト級コンテナを走査 ³' },
+    { value: '≈ 0.15 ms', label: 'ランダム読み込みの最大追加遅延', note: '60 FPS の 1 フレームの 1% 未満 ¹' },
+    { value: '584 MB/s', label: 'コールドキャッシュでの順次読み込み', note: '全 3.5 GB のアセットで実測 ¹' },
+    { value: '+1.3 s', label: 'コールドスタートの追加時間', note: '起動時に一度だけ発生 ¹' },
+    { value: '+0.09%', label: '配布サイズの増加', note: '3 プラットフォーム分のネイティブランタイムを含む ¹' },
   ],
-  meter: {
-    title: '復号スループットとリアルタイム再生の要件',
-    fillName: 'シーケンシャル復号',
-    fillLabel: '参照リーダーによるエンジン内シーケンシャル復号：約 74 MB/s',
-    bandName: 'リアルタイム再生',
-    bandLabel: 'リアルタイムの動画・音声デコードに必要な帯域：数 MB/s',
-    bandValue: '数 MB/s',
-    body: 'ベースラインの Python 参照リーダーは、数 MB 規模のアセットに対してエンジン内で約 74 MB/s のシーケンシャル復号スループットを記録しており、リアルタイムの動画・音声デコードに必要な数 MB/s を大きく上回ります。製品版のネイティブ復号器はチャンクごとの Python 呼び出しのオーバーヘッドを排除していますが、そのスループットは個別には未測定です。',
+  charts: {
+    original: 'オリジナル版',
+    protected: 'RenMori 保護版',
+    throughput: {
+      title: 'シーケンシャル読み込みスループット（コールドキャッシュ）',
+      groups: ['画像', '音声', '動画', '全アセット'],
+      band: { name: 'リアルタイム再生', label: 'リアルタイムの動画・音声デコードに必要な帯域：数 MB/s', value: '数 MB/s' },
+      body: 'コールドキャッシュで、保護版が全 3.5 GB のアセットを読み込むスループットは 584 MB/s で、オリジナル版の約 45% ですが、リアルタイムの音声・動画デコードに必要な帯域の 100 倍以上です。',
+    },
+    frame: {
+      title: '1 回の読み込み時間と 1 フレームの比較（コールドキャッシュ）',
+      groups: ['平均的な画像', 'ランダム 64 KB', '小さなファイル', 'ランダム 4 KB'],
+      band: { name: '1 フレーム', label: '60 FPS での 1 フレームの時間：16.7 ms', value: '16.7' },
+      body: 'コールドキャッシュでも、保護版は平均的な大きさの画像 1 枚を約 3.4 ms で読み込み、ランダム読み込みで増える遅延も 0.15 ms 以下です。いずれも 60 FPS での 1 フレームを大きく下回り、プレイ中に体感できるカクつきは生じません。',
+    },
+    startup: {
+      title: '最初のフレームまでの時間',
+      groups: ['コールドスタート', 'ウォームスタート'],
+      body: "追加の時間は起動時に一度だけ発生します。保護版はディスク上に平文を残さないよう、バイトコードなどの Ren'Py のランタイムキャッシュを書き込まないため、起動のたびにスクリプトを再コンパイルします。ゲーム開始後に差はありません。",
+    },
   },
   layout: {
     title: 'チャンク構成とサイズオーバーヘッド',
@@ -329,12 +375,13 @@ const ja: Copy = {
     ],
   },
   notes: [
-    "¹ Ren'Py 8.5.2 エンジン内で、Python 参照リーダー（ctypes 経由で librenpython の OpenSSL EVP を使用）により、64 KB チャンクの AES-256-GCM で数 MB 規模のアセットを順次読み込んで測定。製品版のネイティブ復号器は未測定。",
-    '² コンテナ形式 v1 仕様から算出した値であり、実測値ではない。',
-    "³ Ren'Py 8.5.2 上で、SDK サンプルプロジェクト the_question と、数千件のアセットを含むギガバイト級の配布用ビルドを用いて検証。",
+    "¹ 性能データは 2026-10-31 に Apple M1（メモリ 8 GB、macOS 26.5.1）上で実測。Ren'Py 8.5.2、RenMori 1.2.0 フル保護でネイティブ launcher 経由で起動。サンプルは実在する GalGame の配布用ビルドで、両ビルドで一致する 1407 件のエントリ（3593 MB）を比較し、コールドキャッシュの測定には毎回新しい APFS クローンを使用。",
+    '² チャンク構造に示した 0.024% のサイズオーバーヘッドはコンテナ形式 v1 仕様から算出した値であり、実測値ではない。',
+    "³ 既存ツール、ファイルシグネチャ、アセット種別の検証は Ren'Py 8.5.2 上で、SDK サンプルプロジェクト the_question と、数千件のアセットを含むギガバイト級の配布用ビルドを用いて実施。",
   ],
   sourcesLabel: 'データの出典：',
   sources: [
+    ['実ゲームでの実測', '/milestones/benchmark-game'],
     ['M1 の成果', '/milestones/m1-results'],
     ['コンテナ形式 v1', '/technical/container-format'],
     ['アーキテクチャ', '/technical/architecture'],

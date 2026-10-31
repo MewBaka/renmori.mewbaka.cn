@@ -5,11 +5,27 @@ import './HomeData.css';
 // Site-internal doc paths; zh is the default locale and carries no prefix
 const docPath = (lang: string, page: string) => (lang === 'zh' ? '' : `/${lang}`) + page;
 
-// Throughput meter scale; the real-time band is the upper bound of "a few MB/s"
-const METER_MAX = 80;
-const THROUGHPUT = 74;
-const REALTIME_BAND = 10;
-const TICKS = [0, 20, 40, 60, 80];
+// Real-game benchmark (2026-10-31, Apple M1), medians from the report page
+// /milestones/benchmark-game; each pair is [original, protected]
+const THROUGHPUT: [number, number][] = [
+  [1154, 555],
+  [1132, 430],
+  [1895, 658],
+  [1303, 584],
+];
+// Cold-cache read time per access in ms: an average image (1.9 MB) derived from
+// the image throughput above, then the random-read medians
+const READ_MS: [number, number][] = [
+  [1.65, 3.44],
+  [0.252, 0.403],
+  [0.196, 0.265],
+  [0.216, 0.181],
+];
+const FRAME_MS = 16.7;
+const STARTUP: [number, number][] = [
+  [7.16, 8.44],
+  [5.05, 5.83],
+];
 
 function Check({ label }: { label: string }) {
   return (
@@ -43,44 +59,131 @@ function Kpis({ t }: { t: Copy }) {
   );
 }
 
-function Meter({ t }: { t: Copy }) {
-  const pct = (v: number) => `${(v / METER_MAX) * 100}%`;
+type BarsProps = {
+  t: Copy;
+  title: string;
+  groups: string[];
+  values: [number, number][];
+  max: number;
+  ticks: number[];
+  unit: string;
+  fmt: (v: number) => string;
+  band?: { name: string; label: string; value: string };
+  // Band width on the axis; a band without one is drawn as a thin marker
+  bandAt?: number;
+  body: string;
+  wide?: boolean;
+};
+
+// Grouped horizontal bars: original in a neutral tone, protected in the accent
+function Bars({ t, title, groups, values, max, ticks, unit, fmt, band, bandAt, body, wide }: BarsProps) {
+  const pct = (v: number) => `${Math.min(v / max, 1) * 100}%`;
+  const series = [t.charts.original, t.charts.protected];
   return (
-    <article className="rm-data__card rm-data__card--wide">
-      <h3 className="rm-data__card-title">{t.meter.title}</h3>
-      <div className="rm-meter" role="img" aria-label={`${t.meter.fillLabel}; ${t.meter.bandLabel}`}>
-        <div className="rm-meter__row">
-          <span className="rm-meter__name">{t.meter.fillName}</span>
-          <div className="rm-meter__track">
-            <div className="rm-meter__seg rm-meter__seg--fill" style={{ width: pct(THROUGHPUT) }} tabIndex={0}>
-              <span className="rm-tip">{t.meter.fillLabel}</span>
+    <article className={wide ? 'rm-data__card rm-data__card--wide' : 'rm-data__card'}>
+      <h3 className="rm-data__card-title">{title}</h3>
+      <div className="rm-bars__legend">
+        <span className="rm-bars__key rm-bars__key--orig">{series[0]}</span>
+        <span className="rm-bars__key rm-bars__key--prot">{series[1]}</span>
+      </div>
+      <div className="rm-meter">
+        {groups.map((g, gi) => (
+          <div className="rm-bars__group" key={g}>
+            {values[gi].map((v, si) => (
+              <div className="rm-meter__row" key={si}>
+                <span className="rm-meter__name">{si === 0 ? g : ''}</span>
+                <div className="rm-meter__track">
+                  <div
+                    className={`rm-meter__seg ${si === 0 ? 'rm-bars__seg--orig' : 'rm-meter__seg--fill'}`}
+                    style={{ width: pct(v) }}
+                    tabIndex={0}
+                  >
+                    <span className="rm-tip">
+                      {g} · {series[si]} · {fmt(v)} {unit}
+                    </span>
+                  </div>
+                </div>
+                <span className="rm-meter__value">{fmt(v)}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+        {band && (
+          <div className="rm-bars__group">
+            <div className="rm-meter__row">
+              <span className="rm-meter__name">{band.name}</span>
+              <div className="rm-meter__track">
+                <div
+                  className={`rm-meter__seg rm-meter__seg--band${bandAt ? '' : ' rm-bars__band'}`}
+                  style={bandAt ? { width: pct(bandAt) } : undefined}
+                  tabIndex={0}
+                >
+                  <span className="rm-tip">{band.label}</span>
+                </div>
+              </div>
+              <span className="rm-meter__value">{band.value}</span>
             </div>
           </div>
-          <span className="rm-meter__value">≈ {THROUGHPUT} MB/s</span>
-        </div>
-        <div className="rm-meter__row">
-          <span className="rm-meter__name">{t.meter.bandName}</span>
-          <div className="rm-meter__track">
-            <div className="rm-meter__seg rm-meter__seg--band" style={{ width: pct(REALTIME_BAND) }} tabIndex={0}>
-              <span className="rm-tip">{t.meter.bandLabel}</span>
-            </div>
-          </div>
-          <span className="rm-meter__value">{t.meter.bandValue}</span>
-        </div>
+        )}
         <div className="rm-meter__axis">
           <span className="rm-meter__name" />
           <div className="rm-meter__ticks">
-            {TICKS.map((v) => (
+            {ticks.map((v) => (
               <span key={v} style={{ left: pct(v) }}>
                 {v}
               </span>
             ))}
           </div>
-          <span className="rm-meter__value rm-meter__unit">MB/s</span>
+          <span className="rm-meter__value rm-meter__unit">{unit}</span>
         </div>
       </div>
-      <p className="rm-data__body">{t.meter.body}</p>
+      <p className="rm-data__body">{body}</p>
     </article>
+  );
+}
+
+function Charts({ t }: { t: Copy }) {
+  const c = t.charts;
+  return (
+    <>
+      <Bars
+        t={t}
+        wide
+        title={c.frame.title}
+        groups={c.frame.groups}
+        values={READ_MS}
+        max={18}
+        ticks={[0, 3, 6, 9, 12, 15, 18]}
+        unit="ms"
+        fmt={(v) => v.toFixed(2)}
+        band={c.frame.band}
+        bandAt={FRAME_MS}
+        body={c.frame.body}
+      />
+      <Bars
+        t={t}
+        title={c.throughput.title}
+        groups={c.throughput.groups}
+        values={THROUGHPUT}
+        max={2000}
+        ticks={[0, 500, 1000, 1500, 2000]}
+        unit="MB/s"
+        fmt={(v) => String(v)}
+        band={c.throughput.band}
+        body={c.throughput.body}
+      />
+      <Bars
+        t={t}
+        title={c.startup.title}
+        groups={c.startup.groups}
+        values={STARTUP}
+        max={10}
+        ticks={[0, 2, 4, 6, 8, 10]}
+        unit="s"
+        fmt={(v) => v.toFixed(2)}
+        body={c.startup.body}
+      />
+    </>
   );
 }
 
@@ -253,7 +356,7 @@ export function HomeData() {
       </header>
       <Kpis t={t} />
       <div className="rm-data__grid">
-        <Meter t={t} />
+        <Charts t={t} />
         <Layout t={t} />
         <Disk t={t} />
         <Tools t={t} />

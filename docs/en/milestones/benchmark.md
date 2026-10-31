@@ -9,6 +9,8 @@ This page records the performance benchmark results for RenMori 1.1.0: the tests
 
 The benchmark script is [`tools/benchmark.py`](https://github.com/MewBaka/RenMori/blob/main/tools/benchmark.py) in the repository, and the raw results behind this page are in [`docs/benchmarks/2026-10-31-apple-m1.json`](https://github.com/MewBaka/RenMori/blob/main/docs/benchmarks/2026-10-31-apple-m1.json).
 
+Results measured on a real GalGame distribution build are in the [Real-game Benchmark](./benchmark-game.md).
+
 ## Summary
 
 - With full protection, in-engine decryption throughput is 567 to 1529 MB/s depending on file size

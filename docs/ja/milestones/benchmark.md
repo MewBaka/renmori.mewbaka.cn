@@ -9,6 +9,8 @@ description: 実際の Ren'Py エンジン内で、未保護ビルド、ベー�
 
 ベンチマークスクリプトはリポジトリの [`tools/benchmark.py`](https://github.com/MewBaka/RenMori/blob/main/tools/benchmark.py) で、本ページのデータに対応する生の結果は [`docs/benchmarks/2026-10-31-apple-m1.json`](https://github.com/MewBaka/RenMori/blob/main/docs/benchmarks/2026-10-31-apple-m1.json) にあります。
 
+実在する GalGame の配布用ビルドでの実測結果は [実ゲームでの実測](./benchmark-game.md) を参照してください。
+
 ## 結果の要約
 
 - フル保護でのエンジン内復号スループットは、ファイルサイズに応じて 567〜1529 MB/s
