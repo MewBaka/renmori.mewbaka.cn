@@ -59,7 +59,7 @@ TTY でない環境では色付き出力が自動で無効になり、`NO_COLOR`
 - uses: actions/cache@v4
   with:
     path: ~/.cache/renmori/plugin
-    key: renmori-plugin-${{ runner.os }}-plugin-v1.0.0
+    key: renmori-plugin-${{ runner.os }}-plugin-v1.2.5
 ```
 
 以下の環境変数により、プラグインの取得方法をさらに制御できます。
@@ -136,7 +136,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/.cache/renmori/plugin
-          key: renmori-plugin-${{ runner.os }}-plugin-v1.0.0
+          key: renmori-plugin-${{ runner.os }}-plugin-v1.2.5
 
       - name: Protect
         # The plugin derives its own keys, so no key secrets are needed here. Key

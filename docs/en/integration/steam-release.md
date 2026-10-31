@@ -114,9 +114,23 @@ The launcher boots Ren'Py, and `renmori.rpe` then takes over asset loading and d
 ## Steam compatibility notes
 
 - **Do not add Steam DRM on top** (the DRMToolkit executable wrapper): it rewrites the launcher binary, can conflict with runtime self-checks, and is weak on its own, whereas RenMori already protects the data layer
-- **The Steam overlay works normally**: RenMori only hooks Ren'Py's file loading and never performs process or DLL injection, so the overlay is unaffected
+- **The Steam overlay works normally**: on the default build (without `--launcher`), RenMori only hooks Ren'Py's file loading and never performs process or DLL injection, so the overlay is unaffected; with `--launcher`, see the native launcher section below
 - **Achievements and Cloud save data** go through Ren'Py's Python API and are unaffected; `renmori.rmc` is a static file, so Steam's file verification and delta updates work normally
 - **`steam_appid.txt`** is read by the Steam SDK directly, outside `renpy.loader`, so RenMori keeps it as plaintext by default (`DEFAULT_KEEP_ON_DISK`); keeping it in the distribution build is harmless, and other externally read files can be added through `keep_on_disk` in `renmori.toml` (see [Configuration](../cli/configuration.md))
+
+## Native launcher (`--launcher`) and Steam
+
+`--launcher` is opt-in: it replaces the game's entry point with the RenMori native launcher, which performs boot attestation and then starts the real engine, and that step changes the process model the Steam overlay and the Steamworks SDK rely on, so its Steam compatibility is tracked per operating system:
+
+| OS | How the engine is started | Status |
+|---|---|---|
+| macOS | `execv` (same PID, inherited environment) | Verified: the overlay re-attaches to the real engine and `SteamAPI_Init` keeps its app context |
+| Windows | `_spawnv` (the engine runs as a child process) | Not yet tested: the child-process model is the case most likely to affect overlay injection |
+| Linux | `execv` (same as macOS) | Not yet tested: expected to behave like macOS |
+
+Until Windows is confirmed, prefer the default build (without `--launcher`) for Steam on Windows, or enable `--launcher` for macOS only; as of 1.2.5 the launcher is installed automatically only into the macOS `.app`; on Windows and Linux it ships as a separate file and must be wired in by hand (rename the real engine to `<name>.renmori_real` and put the launcher at the entry point).
+
+From 1.2.5 the launcher refuses to start when it finds loose Ren'Py scripts or extensions under `game/`, so mods or patches that players drop into `game/` as `.rpy` files stop a `--launcher` build from starting, so ship such content inside the build instead; builds protected with `--launcher` on 1.2.0 or earlier miss this check and should be protected again with 1.2.5 or later.
 
 ## Checklist
 
@@ -127,3 +141,4 @@ The launcher boots Ren'Py, and `renmori.rpe` then takes over asset loading and d
 - [ ] Launch options set per operating system (`the_question.exe` / `.sh` / `.app`)
 - [ ] No Steam DRM wrapper applied
 - [ ] Did **not** re-run the launcher on the protected folder
+- [ ] If using `--launcher`: protected with 1.2.5 or later, and enabled only on verified platforms

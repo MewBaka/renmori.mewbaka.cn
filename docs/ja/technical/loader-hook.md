@@ -32,7 +32,7 @@ description: RenMori が Ren'Py 8.5 のアセット読み込みに組み込ま�
 
 Ren'Py のスクリプトは、ゲームの `.rpy` コードが実行されるより前の起動時に検出されるため、通常の `init python` ブロックでは間に合いません。Ren'Py 8.5 は公式の早期フックとして **Ren'Py Extension** を提供しています。`renpy.main.main()` は、`renpy.loader.index_files()` の実行**前**、かつスクリプトの読み込み前に、Ren'Py のベースディレクトリ、`game/`、`game/libs` から、すべての `*.rpe`（`autorun.py` を含む zip で、`sys.path` に追加される）と `*.rpe.py` をソート順に読み込みます。
 
-RenMori はランタイムを `game/renmori.rpe` として配布します。（これは後のバージョンでネイティブランチャーに移す予定です。`.rpe` は攻撃者にとっての注入ポイントでもあるため、RenMori 自身の署名済み拡張のみに限定するロックダウンが必要です。）
+RenMori はランタイムを `game/renmori.rpe` として配布します。（`.rpe` は攻撃者にとっての注入ポイントでもあります。オプションのネイティブランチャー（`--launcher`）を使う場合、1.2.5 以降は配布物のルート、`game/`、`game/libs`、`renpy/common` に `game/renmori.rpe` 以外の `.rpe` があると起動を拒否し、`game/renmori.rpe` 自体も鍵導出に組み込むため、書き換えられたコピーは誤った鍵しか導出できません。`--launcher` を使わないビルドにはこの検査はありません。）
 
 ## 4. 戻り値の型が重要：`RWopsIO` と再オープンの罠
 

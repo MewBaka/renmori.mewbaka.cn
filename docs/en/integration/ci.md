@@ -59,7 +59,7 @@ Persisting this directory between CI runs avoids downloading the plugin on every
 - uses: actions/cache@v4
   with:
     path: ~/.cache/renmori/plugin
-    key: renmori-plugin-${{ runner.os }}-plugin-v1.0.0
+    key: renmori-plugin-${{ runner.os }}-plugin-v1.2.5
 ```
 
 The following environment variables give further control over how the plugin is obtained:
@@ -136,7 +136,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/.cache/renmori/plugin
-          key: renmori-plugin-${{ runner.os }}-plugin-v1.0.0
+          key: renmori-plugin-${{ runner.os }}-plugin-v1.2.5
 
       - name: Protect
         # The plugin derives its own keys, so no key secrets are needed here. Key

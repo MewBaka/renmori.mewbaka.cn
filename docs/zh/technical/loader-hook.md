@@ -32,7 +32,7 @@ description: RenMori 如何接入 Ren'Py 8.5 的资源加载流程，包括文�
 
 Ren'Py 脚本在启动时、任何游戏 `.rpy` 代码运行之前就已被发现，因此普通的 `init python` 块为时已晚。Ren'Py 8.5 提供了官方的早期钩子：**Ren'Py 扩展（Ren'Py Extensions）**。`renpy.main.main()` 会按排序顺序，从 Ren'Py 基目录、`game/` 与 `game/libs` 中加载每一个 `*.rpe`（包含 `autorun.py` 的 zip 文件，会被加入 `sys.path`）与 `*.rpe.py`，加载时机**早于** `renpy.loader.index_files()`，也早于脚本加载。
 
-RenMori 将其运行时以 `game/renmori.rpe` 的形式随发行版构建分发。（计划在后续版本中迁入原生启动器；`.rpe` 同时也是攻击者的注入点，必须锁定为仅允许本项目签名的扩展。）
+RenMori 将其运行时以 `game/renmori.rpe` 的形式随发行版构建分发。（`.rpe` 同时也是攻击者的注入点；启用可选的原生启动器（`--launcher`）时，1.2.5 及以后的版本在发行版根目录、`game/`、`game/libs` 或 `renpy/common` 中出现 `game/renmori.rpe` 以外的任何 `.rpe` 时拒绝启动，并把 `game/renmori.rpe` 本身纳入密钥派生，被改写的副本只能派生出错误的密钥；未启用 `--launcher` 的构建没有该检查。）
 
 ## 4. 返回类型至关重要：`RWopsIO` 与重新打开陷阱
 

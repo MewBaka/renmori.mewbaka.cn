@@ -59,7 +59,7 @@ Protect タブは [`renmori protect`](./protect.md) に対応します。
 | コントロール | 対応するオプション | 既定の状態 | 説明 |
 |---|---|---|---|
 | Strength | `--strength` | 空欄 | 空欄、`full`、`auto`、`baseline` から選択。空欄の場合はオプションを渡さず、設定ファイルの値を使用し、設定がなければ `full` |
-| Chunk size | `--chunk-size` | 空欄 | 単位はバイト。空欄の場合は設定ファイルの値または既定値 65536 |
+| Chunk size | `--chunk-size` | 空欄 | 単位はバイトで、ベースラインのみに適用。空欄の場合は設定ファイルの値または既定値 65536 |
 | Platforms | `--platforms` | auto-detect | auto-detect のチェックを外すと `mac-universal`、`linux-x64`、`win-x64` から選択できる。チェックを外していずれも選択しない場合は自動検出として扱う。プラグイン使用時のみ有効 |
 | Lockdown (disable console/developer/export) | `--no-lockdown` | オン | チェックを外すと `--no-lockdown` と同等。オンのままではオプションを渡さず、設定ファイルの `lockdown` を使用し、設定がなければ有効 |
 | Bind a native launcher (--launcher) | `--launcher` | オフ | プラグイン使用時のみ有効 |

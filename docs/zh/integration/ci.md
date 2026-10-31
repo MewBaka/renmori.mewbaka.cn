@@ -59,7 +59,7 @@ RenMori 仅在交互式终端（TTY）上显示确认提示，包括原地保护
 - uses: actions/cache@v4
   with:
     path: ~/.cache/renmori/plugin
-    key: renmori-plugin-${{ runner.os }}-plugin-v1.0.0
+    key: renmori-plugin-${{ runner.os }}-plugin-v1.2.5
 ```
 
 以下环境变量可进一步控制插件的获取方式：
@@ -136,7 +136,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/.cache/renmori/plugin
-          key: renmori-plugin-${{ runner.os }}-plugin-v1.0.0
+          key: renmori-plugin-${{ runner.os }}-plugin-v1.2.5
 
       - name: Protect
         # The plugin derives its own keys, so no key secrets are needed here. Key
