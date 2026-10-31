@@ -59,7 +59,7 @@ export type Copy = {
 
 const zh: Copy = {
   title: '数据与验证',
-  lead: '以下数据均取自 RenMori 仓库中的里程碑验证记录与容器格式规范，每项数据均注明其测量或推算条件。',
+  lead: '以下数据均取自 RenMori 仓库中的里程碑验证记录与容器格式规范，每项数据均注明其测量或推算条件',
   kpis: [
     { value: '74 MB/s', label: '引擎内顺序解密吞吐', note: '基线参考读取器实测 ¹' },
     { value: '≈ 0.024%', label: '容器体积开销', note: '依据格式规范计算 ²' },
@@ -145,16 +145,16 @@ const zh: Copy = {
   ],
   sourcesLabel: '数据来源：',
   sources: [
-    ['M1 成果', 'm1-results.zh-CN.md'],
-    ['容器格式 v1', 'container-format-v1.zh-CN.md'],
-    ['架构', 'architecture.zh-CN.md'],
-    ['M4', 'm4.zh-CN.md'],
+    ['M1 成果', '/milestones/m1-results'],
+    ['容器格式 v1', '/technical/container-format'],
+    ['架构', '/technical/architecture'],
+    ['M4', '/milestones/m4'],
   ],
 };
 
 const en: Copy = {
   title: 'Data and verification',
-  lead: 'All figures below are taken from the milestone verification records and the container format specification in the RenMori repository, with the measurement or derivation conditions stated for each.',
+  lead: 'All figures below are taken from the milestone verification records and the container format specification in the RenMori repository, with the measurement or derivation conditions stated for each',
   kpis: [
     { value: '74 MB/s', label: 'In-engine sequential decryption', note: 'Measured, baseline reference reader ¹' },
     { value: '≈ 0.024%', label: 'Container size overhead', note: 'Derived from the format spec ²' },
@@ -240,16 +240,16 @@ const en: Copy = {
   ],
   sourcesLabel: 'Sources:',
   sources: [
-    ['M1 results', 'm1-results.md'],
-    ['Container format v1', 'container-format-v1.md'],
-    ['Architecture', 'architecture.md'],
-    ['M4', 'm4.md'],
+    ['M1 results', '/milestones/m1-results'],
+    ['Container format v1', '/technical/container-format'],
+    ['Architecture', '/technical/architecture'],
+    ['M4', '/milestones/m4'],
   ],
 };
 
 const ja: Copy = {
   title: 'データと検証',
-  lead: '以下のデータはすべて RenMori リポジトリのマイルストーン検証記録とコンテナ形式仕様に基づくものであり、各項目に測定または算出の条件を記載しています。',
+  lead: '以下のデータはすべて RenMori リポジトリのマイルストーン検証記録とコンテナ形式仕様に基づくものであり、各項目に測定または算出の条件を記載しています',
   kpis: [
     { value: '74 MB/s', label: 'エンジン内シーケンシャル復号', note: 'ベースライン参照リーダーで実測 ¹' },
     { value: '≈ 0.024%', label: 'コンテナのサイズオーバーヘッド', note: '形式仕様から算出 ²' },
@@ -333,12 +333,12 @@ const ja: Copy = {
     '² コンテナ形式 v1 仕様から算出した値であり、実測値ではない。',
     "³ Ren'Py 8.5.2 上で、SDK サンプルプロジェクト the_question と、数千件のアセットを含むギガバイト級の配布用ビルドを用いて検証。",
   ],
-  sourcesLabel: 'データの出典（英語）：',
+  sourcesLabel: 'データの出典：',
   sources: [
-    ['M1 の成果', 'm1-results.md'],
-    ['コンテナ形式 v1', 'container-format-v1.md'],
-    ['アーキテクチャ', 'architecture.md'],
-    ['M4', 'm4.md'],
+    ['M1 の成果', '/milestones/m1-results'],
+    ['コンテナ形式 v1', '/technical/container-format'],
+    ['アーキテクチャ', '/technical/architecture'],
+    ['M4', '/milestones/m4'],
   ],
 };
 

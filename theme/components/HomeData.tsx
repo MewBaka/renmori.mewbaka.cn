@@ -2,7 +2,8 @@ import { useLang } from '@rspress/core/runtime';
 import { COPY, type Copy } from './homeDataCopy';
 import './HomeData.css';
 
-const DOCS = 'https://github.com/MewBaka/RenMori/blob/main/docs/';
+// Site-internal doc paths; zh is the default locale and carries no prefix
+const docPath = (lang: string, page: string) => (lang === 'zh' ? '' : `/${lang}`) + page;
 
 // Throughput meter scale; the real-time band is the upper bound of "a few MB/s"
 const METER_MAX = 80;
@@ -270,7 +271,7 @@ export function HomeData() {
           {t.sources.map(([label, file], i) => (
             <span key={file}>
               {i > 0 ? ' · ' : ' '}
-              <a href={DOCS + file} target="_blank" rel="noreferrer">
+              <a href={docPath(lang, file)}>
                 {label}
               </a>
             </span>
