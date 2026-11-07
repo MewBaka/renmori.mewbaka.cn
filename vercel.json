@@ -5,12 +5,23 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "renmorimewbakacn.vercel.app" }],
+      "destination": "https://renmori.mewbaka.cn/$1",
+      "permanent": true
+    },
+    {
       "source": "/:path((?!(?:en|ja)/$).+)/",
       "destination": "/:path",
       "permanent": true
     }
   ],
   "headers": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": ".*\\.vercel\\.app" }],
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    },
     {
       "source": "/(.*)\\.md",
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, follow" }]

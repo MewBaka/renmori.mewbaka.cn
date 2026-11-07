@@ -34,6 +34,7 @@ npm run build
 
 Vercel 读取 `vercel.json`：构建命令为 `npm run build`，输出目录为 `doc_build`，并开启 `cleanUrls` 以匹配 Rspress 的 `route.cleanUrls`。此外：
 
+- 生产别名 `renmorimewbakacn.vercel.app` 308 重定向到 `renmori.mewbaka.cn`，其余 `*.vercel.app` 地址（预览与单次部署）返回 `X-Robots-Tag: noindex`
 - 带末尾斜杠的文档地址 308 重定向到无斜杠版本（语言首页 `/en/`、`/ja/` 除外，它们的 canonical 本身带斜杠）
 - `.md` 副本与 `llms*.txt` 返回 `X-Robots-Tag: noindex`，避免与 HTML 页面重复收录
 - `/static/` 下带哈希的资源设置一年的 `immutable` 缓存
