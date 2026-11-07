@@ -33,6 +33,8 @@ It defends against:
 
 RenMori is not an absolute shield: a game that runs on the player's machine can never be made uncrackable, and what RenMori commits to is defeating general-purpose unpacking tools and the AI agents that call them, and requiring new, dedicated expert reverse engineering for every title and version, rather than eliminating all risk; since most reverse engineers do not invest extensive time in a single title, RenMori provides effective protection for the vast majority of games, as analysed in the [threat model](../technical/threat-model.md).
 
+Why renaming archives or obfuscating rpyc files does not stop `unrpa` and `unrpyc`, and how RenMori prevents unpacking and decompiling, is covered in [How to protect a Ren'Py game from unrpa and unrpyc](./renpy-anti-unpacking.md).
+
 ## Is RenMori right for you
 
 ### Suitable for

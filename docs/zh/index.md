@@ -24,6 +24,7 @@ features:
   - title: 全量数据加密
     icon: /icons/lock.svg
     details: 脚本、立绘、CG、音频、视频、字体、翻译与配置全部封入加密容器，仅在运行中的引擎内部解密，磁盘上不留存明文资源
+    link: /guide/renpy-anti-unpacking
   - title: 零侵入接入
     icon: /icons/package.svg
     details: 直接处理 Ren'Py 启动器生成的发行版构建或 <code>.zip</code> 压缩包，无需改动项目源码与既有开发流程

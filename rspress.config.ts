@@ -8,9 +8,9 @@ const OG_LOCALE: Record<string, string> = { zh: 'zh_CN', en: 'en_US', ja: 'ja_JP
 
 // Search terms people actually use: the engine name, the archive/script formats and the tools to stop
 const KEYWORDS: Record<string, string> = {
-  zh: "RenMori, Ren'Py 加密, renpy 加密, Ren'Py 防解包, rpa 加密, rpyc 反编译, 视觉小说加密, GalGame 加密, 游戏资源加密, 防破解, unrpa, unrpyc",
-  en: "RenMori, Ren'Py encryption, protect Ren'Py game, encrypt rpa, prevent unrpa, prevent unrpyc, rpyc decompile protection, visual novel asset protection, anti-unpacking",
-  ja: "RenMori, Ren'Py 暗号化, rpa 暗号化, ノベルゲーム 暗号化, ビジュアルノベル 素材保護, 逆コンパイル対策, アンパック対策, unrpa, unrpyc",
+  zh: "RenMori, renpy 加密, renpy 防解包, renpy 反解包, renpy 反破解, renpy 防反编译, rpa 加密, rpyc 加密, unrpyc 防止, unrpa 防止, un.rpyc, 视觉小说加密, GalGame 加密, 游戏资源加密",
+  en: "RenMori, renpy encryption, protect renpy game, renpy anti-decompile, prevent unrpyc, stop unrpa, encrypt rpa, protect rpyc, un.rpyc, visual novel asset protection, anti-unpacking",
+  ja: "RenMori, Ren'Py 暗号化, renpy 解析対策, 逆コンパイル対策, アンパック対策, unrpyc 対策, unrpa 対策, rpa 暗号化, 素材 抜き出し 防止, ノベルゲーム 暗号化",
 };
 
 // Fallback page description (404) and the structured-data description

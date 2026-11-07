@@ -24,6 +24,7 @@ features:
   - title: Full-data encryption
     icon: /icons/lock.svg
     details: Scripts, sprites, CGs, audio, video, fonts, translations and configuration are packed into an encrypted container and decrypted only inside the running engine, leaving no plaintext assets on disk
+    link: /en/guide/renpy-anti-unpacking
   - title: Non-invasive
     icon: /icons/package.svg
     details: Works directly on the distribution build or <code>.zip</code> archive produced by the Ren'Py launcher, with no changes to the project source or existing workflow

@@ -24,6 +24,7 @@ features:
   - title: 全データ暗号化
     icon: /icons/lock.svg
     details: スクリプト、立ち絵、CG、音声、動画、フォント、翻訳、設定をすべて暗号化コンテナに格納し、実行中のエンジン内部でのみ復号するため、ディスク上に平文のアセットを残さない
+    link: /ja/guide/renpy-anti-unpacking
   - title: 非侵入型
     icon: /icons/package.svg
     details: Ren'Py ランチャーが生成した配布用ビルドや <code>.zip</code> アーカイブを直接処理し、プロジェクトのソースや既存の開発フローを変更する必要がない

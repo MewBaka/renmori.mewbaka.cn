@@ -8,5 +8,10 @@
     "type": "file",
     "name": "quick-start",
     "label": "Quick Start"
+  },
+  {
+    "type": "file",
+    "name": "renpy-anti-unpacking",
+    "label": "Anti-unpacking guide"
   }
 ]

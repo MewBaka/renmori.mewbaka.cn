@@ -1,4 +1,5 @@
 [
-  { "text": "Docs", "link": "/guide/introduction", "activeMatch": "/(guide|cli|integration|technical|milestones|license)/" },
+  { "text": "Docs", "link": "/guide/introduction", "activeMatch": "/(guide/(?!renpy-anti-unpacking)|(cli|integration|technical|milestones|license)/)" },
+  { "text": "Anti-unpacking guide", "link": "/guide/renpy-anti-unpacking" },
   { "text": "MewBaka", "link": "https://mewbaka.cn" }
 ]

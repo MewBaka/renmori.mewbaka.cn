@@ -33,6 +33,8 @@ RenMori 为 Ren'Py 8.x 构建的游戏输出受保护的发行版，防止游戏
 
 RenMori 并非绝对的防护：在玩家机器上运行的游戏永远无法做到不可破解，RenMori 承诺的是使通用解包工具及调用这些工具的 AI Agent 失效，使每一款作品、每一个版本都需要专家级的全新定向逆向，而非消除全部风险；由于多数逆向者不会在单一作品上投入过多时间，对绝大多数作品而言，RenMori 能够提供有效的保护，完整的分析见[威胁模型](../technical/threat-model.md)。
 
+改 rpa 文件头、混淆 rpyc 等常见防解包做法为什么挡不住 `unrpa` 与 `unrpyc`，以及 RenMori 如何防止解包与反编译，见 [renpy 防解包与反破解指南](./renpy-anti-unpacking.md)。
+
 ## RenMori 适合你吗
 
 ### 适用场景

@@ -8,5 +8,10 @@
     "type": "file",
     "name": "quick-start",
     "label": "クイックスタート"
+  },
+  {
+    "type": "file",
+    "name": "renpy-anti-unpacking",
+    "label": "アンパック対策ガイド"
   }
 ]
