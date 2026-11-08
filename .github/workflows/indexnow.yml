@@ -1,0 +1,61 @@
+name: IndexNow
+
+# Vercel reports each deployment as a "Vercel" commit status rather than a GitHub deployment,
+# so a successful status on main means the new pages are live and can be submitted
+on:
+  status:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.state == 'success' &&
+       github.event.context == 'Vercel' &&
+       contains(github.event.branches.*.name, 'main'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.sha || github.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      # A manual run submits every page; the first one after setting up IndexNow seeds the index
+      - name: Submit all pages
+        if: github.event_name == 'workflow_dispatch'
+        run: node scripts/indexnow.mjs --all
+
+      # Submit the pages changed since the last commit Vercel deployed, so every commit
+      # in a multi-commit push is covered even though Vercel only deploys the newest one
+      - name: Submit changed pages
+        if: github.event_name == 'status'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.event.sha }}
+        run: |
+          base=""
+          for c in $(git rev-list --max-count=50 "$SHA^"); do
+            n=$(gh api "repos/$REPO/commits/$c/statuses" \
+              --jq '[.[] | select(.context == "Vercel" and .state == "success")] | length')
+            if [ "$n" -gt 0 ]; then base=$c; break; fi
+          done
+          if [ -n "$base" ]; then
+            echo "Comparing with the last deployed commit $base"
+            node scripts/indexnow.mjs --since "$base"
+          else
+            echo "No deployed commit in the last 50; submitting every page"
+            node scripts/indexnow.mjs --all
+          fi

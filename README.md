@@ -29,6 +29,8 @@ npm run build
 | `theme/components/` | 自定义组件，如 pip / uv / pipx 安装命令标签页 |
 | `theme/index.css` | 品牌色等全局样式 |
 | `rspress.config.ts` | 站点配置 |
+| `scripts/indexnow.mjs` | 向 IndexNow 提交新增、修改或删除的页面 |
+| `.github/workflows/indexnow.yml` | 生产部署成功后自动运行上面的脚本 |
 
 ## 部署
 
@@ -44,3 +46,11 @@ Vercel 读取 `vercel.json`：构建命令为 `npm run build`，输出目录为 
 - 每页 frontmatter 的 `title` 写成「页面名：搜索关键词」，侧边栏仍显示短名称（由各目录 `_meta.json` 的 `label` 固定）
 - 首页标题由 frontmatter 的 `titleSuffix` 拼接为 `RenMori - …`，`description` 写完整的一句话卖点
 - 首页 hero 由 `theme/components/HomeHero.tsx` 渲染，品牌名与副标题位于同一个 `<h1>` 内
+
+## IndexNow
+
+站点通过 [IndexNow](https://www.indexnow.org/) 通知 Bing、Yandex、Naver、Seznam 与 Yep 页面有更新（Google 与百度不支持 IndexNow）。密钥文件为 `docs/public/eed3c9b2494eb2a66836ce31191239f8.txt`，密钥本身是公开的，仅用于证明站点归属；更换密钥时须同时修改该文件名、文件内容与 `scripts/indexnow.mjs` 中的 `KEY`。
+
+- **自动提交**：Vercel 在 `main` 上的提交报告部署成功后，工作流对比上一个部署成功的提交，只提交源文件有变动的页面（`docs/<lang>/**/*.md(x)`）；改动 `rspress.config.ts` 或 `theme/` 下的脚本时提交全部页面
+- **手动全量提交**：在 GitHub Actions 中手动运行 *IndexNow* 工作流，或在本地执行 `npm run indexnow -- --all`
+- **其他用法**：`npm run indexnow -- --since <git-rev>` 提交该版本以来变动的页面，`npm run indexnow -- <url>...` 提交指定网址，加 `--dry-run` 只列出网址而不提交
